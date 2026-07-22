@@ -3,2176 +3,1257 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr. Saroj Kumar Padhi — Professor of Vedānta · BHU</title>
-<meta name="description" content="Academic portfolio of Dr. Saroj Kumar Padhi, Professor of Vaidic Darshan at Banaras Hindu University, specialist in Advaita Vedānta and Contemporary Indian Philosophy.">
+<title>Shrikantha Devaru — Advaita Vedānta Scholar &amp; Philosophy of Mind</title>
+<meta name="description" content="Shrikantha Devaru — Research Scholar in Advaita Vedānta, Philosophy of Mind, Sanskrit Epistemology, and Consciousness Studies.">
+<meta name="theme-color" content="#04040c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-/* ─── RESET & TOKENS ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --void:     #04040c;
-  --deep:     #080814;
-  --surface:  #0d0d1e;
-  --card-bg:  rgba(10,10,22,0.9);
-  --gold:     #d4a843;
-  --gold-dim: rgba(212,168,67,0.12);
-  --gold-glow:rgba(212,168,67,0.06);
-  --pale:     #e8d5a3;
-  --luminous: #f5edd8;
-  --t1:       #e8d9c0;
-  --t2:       #9a8a72;
-  --t3:       #5a5040;
-  --blue:     #4a7fa5;
-  --violet:   #7a5fa5;
-  --teal:     #3a8a7a;
-  --white:    #ffffff;
-  --nav-h:    72px;
-
-  /* gradient heading */
-  --heading-grad: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+/* ─── RESET ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#04040c; --bg2:#07071a; --bg3:#0a0a22;
+  --glass:rgba(255,255,255,0.028);
+  --glass2:rgba(255,255,255,0.055);
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.14);
+  --gold:#c9a84c; --gold2:#f0d080;
+  --cyan:#38d9f5; --violet:#9d71f8;
+  --rose:#f472b6; --green:#4ade80;
+  --t1:#f0ede8; --t2:#7a7870; --t3:#3a3830;
+  --nav-h:66px;
 }
-
-html { scroll-behavior: smooth; overflow-x: hidden; }
-
-body {
-  background: var(--void);
-  color: var(--t1);
-  font-family: 'Kanit', sans-serif;
-  font-weight: 300;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* scrollbar */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--void); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
-
-/* ─── GRADIENT TEXT ─── */
-.grad-text {
-  background: var(--heading-grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--t1);font-family:'Kanit',sans-serif;font-weight:300;overflow-x:hidden}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-thumb{background:var(--violet);border-radius:9px}
 
 /* ─── PROGRESS BAR ─── */
-#progress {
-  position: fixed; top: 0; left: 0; z-index: 999;
-  height: 2px; width: 0%;
-  background: linear-gradient(90deg, #d4a843, #e8d5a3, #d4a843);
-  transition: width 0.1s linear;
+#progress{
+  position:fixed;top:0;left:0;z-index:9999;
+  height:2px;width:0%;
+  background:linear-gradient(90deg,var(--violet),var(--cyan),var(--gold));
+  box-shadow:0 0 10px var(--cyan);
+  transition:width 0.07s linear;
 }
 
-/* ─── STARFIELD ─── */
-#starfield {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+/* ─── THREE.JS BACKGROUND CANVAS ─── */
+#three-canvas{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;width:100%;height:100%;
+}
+
+/* ─── CURSOR GLOW ─── */
+#cursor-glow{
+  position:fixed;pointer-events:none;z-index:9998;
+  width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(157,113,248,0.07) 0%,transparent 70%);
+  transform:translate(-50%,-50%);
+  will-change:left,top;
 }
 
 /* ─── NAV ─── */
-#nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  height: var(--nav-h); z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(24px, 5vw, 64px);
-  transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(18px,4vw,60px);
+  transition:background .5s,backdrop-filter .5s,box-shadow .5s;
 }
-
-#nav.scrolled {
-  background: rgba(4,4,12,0.88);
-  backdrop-filter: blur(22px) saturate(160%);
-  box-shadow: 0 1px 0 rgba(212,168,67,0.1);
+#nav.scrolled{
+  background:rgba(4,4,12,0.82);
+  backdrop-filter:blur(28px) saturate(200%);
+  box-shadow:0 1px 0 var(--border2);
 }
-
-.nav-logo {
-  cursor: pointer;
-  display: flex; flex-direction: column; gap: 1px;
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-mark{
+  width:36px;height:36px;border-radius:9px;
+  border:1.5px solid rgba(157,113,248,0.4);
+  background:rgba(157,113,248,0.08);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:12px;color:var(--violet);font-weight:700;
+  transition:border-color .3s,background .3s,box-shadow .3s;
 }
-
-.nav-logo-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(16px, 2vw, 22px);
-  font-style: italic;
-  color: var(--gold);
-  line-height: 1;
+.brand:hover .brand-mark{border-color:var(--violet);background:rgba(157,113,248,0.18);box-shadow:0 0 18px rgba(157,113,248,0.35)}
+.brand-txt{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--t3);text-transform:uppercase}
+.nav-links{display:flex;gap:clamp(14px,2.5vw,32px);list-style:none}
+.nav-links a{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;
+  color:var(--t3);text-decoration:none;text-transform:uppercase;
+  transition:color .3s;position:relative;
 }
-
-.nav-logo-sub {
-  font-family: 'Space Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  color: var(--t3);
-  text-transform: uppercase;
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--violet),var(--cyan));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.25,.1,.25,1);
 }
-
-.nav-links {
-  display: flex; gap: clamp(20px, 4vw, 48px); list-style: none;
+.nav-links a:hover{color:var(--t1)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{
+  padding:8px 22px;border-radius:100px;
+  border:1px solid rgba(56,217,245,0.35);
+  background:rgba(56,217,245,0.05);
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);text-decoration:none;
+  transition:background .3s,box-shadow .3s,border-color .3s;
 }
+.nav-cta:hover{background:rgba(56,217,245,0.14);box-shadow:0 0 22px rgba(56,217,245,0.22);border-color:var(--cyan)}
 
-.nav-links a {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(9px, 1.1vw, 12px);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--t2);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s;
-}
+/* ─── PAGE WRAP ─── */
+.page{position:relative;z-index:2;overflow-x:clip}
 
-.nav-links a::after {
-  content: '';
-  position: absolute; bottom: -3px; left: 0; right: 0;
-  height: 1px; background: var(--gold);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.35s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.nav-links a:hover { color: var(--gold); }
-.nav-links a:hover::after { transform: scaleX(1); }
-
-/* ─── MAIN WRAPPER ─── */
-.universe { position: relative; z-index: 1; overflow-x: clip; }
-
-/* ══════════════════════════════════════
+/* ═══════════════════════════════
    HERO
-══════════════════════════════════════ */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  overflow: hidden; overflow-x: clip;
-  padding: var(--nav-h) clamp(24px,5vw,64px) 0;
-}
-
-/* Mandala */
-.hero-mandala {
-  position: absolute; top: 50%; right: -5%;
-  transform: translateY(-52%);
-  width: clamp(300px,50vw,640px);
-  height: clamp(300px,50vw,640px);
-  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Dharma_wheel.svg/800px-Dharma_wheel.svg.png') center/contain no-repeat;
-  opacity: 0.04;
-  animation: mandalaSpin 120s linear infinite;
-  pointer-events: none;
-}
-
-/* Rings */
-.ring {
-  position: absolute; border-radius: 50%;
-  border: 1px solid rgba(212,168,67,0.07);
-  pointer-events: none; top: 50%; right: -5%;
-}
-
-.r1 { width: 520px; height: 520px; margin-top:-260px; animation: slowspin 80s linear infinite; }
-.r2 { width: 700px; height: 700px; margin-top:-350px; border-color: rgba(212,168,67,0.04); animation: slowspin 130s linear infinite reverse; }
-.r3 { width: 900px; height: 900px; margin-top:-450px; border-color: rgba(212,168,67,0.02); animation: slowspin 200s linear infinite; }
-
-.r1::before {
-  content: ''; position: absolute;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--gold); top: -4.5px; left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 18px var(--gold), 0 0 36px rgba(212,168,67,0.4);
-}
-
-.r2::before {
-  content: ''; position: absolute;
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--blue); bottom: -2.5px; right: 60px;
-  box-shadow: 0 0 12px var(--blue);
-}
-
-@keyframes slowspin { to { transform: rotate(360deg); } }
-@keyframes mandalaSpin { to { transform: translateY(-52%) rotate(360deg); } }
-
-/* Hero content */
-.hero-content {
-  flex: 1; display: flex; flex-direction: column;
-  justify-content: center; gap: 0;
-  padding-bottom: 80px;
-  position: relative; z-index: 2;
-}
-
-.hero-eyebrow {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(9px,1.1vw,12px);
-  letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: clamp(20px,3vh,36px);
-  display: flex; align-items: center; gap: 14px;
-  opacity: 0; transform: translateY(-20px);
-  animation: fadeSlide 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.05s forwards;
-}
-
-.hero-eyebrow::before {
-  content: ''; display: block; width: 32px; height: 1px;
-  background: var(--gold); opacity: 0.55;
-}
-
-.hero-dr {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(10px,1.2vw,14px); letter-spacing: 0.25em;
-  color: var(--gold); margin-bottom: 6px;
-  opacity: 0; transform: translateY(40px);
-  animation: fadeSlide 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.15s forwards;
-}
-
-.hero-name {
-  font-family: 'Kanit', sans-serif;
-  font-size: clamp(52px,9.5vw,112px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.025em;
-  line-height: 0.88;
-  white-space: nowrap;
-  overflow: hidden;
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0; transform: translateY(40px);
-  animation: fadeSlide 0.75s cubic-bezier(0.25,0.1,0.25,1) 0.2s forwards;
-}
-
-.hero-name-italic {
-  font-style: italic; font-weight: 300;
-  display: block;
-  background: linear-gradient(180deg, #c9b68a 0%, #e8d9c0 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-tagline {
-  margin-top: clamp(18px,2.5vh,30px);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(15px,2.2vw,24px);
-  font-style: italic;
-  color: var(--t2);
-  font-weight: 300;
-  line-height: 1.4;
-  max-width: 480px;
-  opacity: 0; transform: translateY(30px);
-  animation: fadeSlide 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.35s forwards;
-}
-
-.hero-inst {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(9px,1.1vw,11px);
-  letter-spacing: 0.1em; color: var(--t3);
-  margin-top: 8px;
-  opacity: 0; transform: translateY(20px);
-  animation: fadeSlide 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.42s forwards;
-}
-
-/* Stats */
-.hero-stats {
-  display: flex; flex-wrap: wrap; gap: 0;
-  margin-top: clamp(28px,4vh,52px);
-  width: fit-content;
-  border: 1px solid rgba(212,168,67,0.14);
-  opacity: 0; transform: translateY(20px);
-  animation: fadeSlide 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.5s forwards;
-}
-
-.stat {
-  padding: clamp(10px,1.5vh,18px) clamp(18px,3vw,36px);
-  border-right: 1px solid rgba(212,168,67,0.14);
-  text-align: center; position: relative;
-}
-
-.stat:last-child { border-right: none; }
-
-.stat-num {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 800;
-  font-size: clamp(28px,4vw,48px);
-  line-height: 1;
-  background: linear-gradient(180deg, #d4a843 0%, #f5edd8 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: transform 0.3s;
-}
-
-.stat:hover .stat-num { transform: scale(1.08); }
-
-.stat-label {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(7px,0.9vw,9px);
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--t3); margin-top: 4px;
-}
-
-/* Contact chips */
-.hero-contact {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  margin-top: clamp(20px,3vh,36px);
-  opacity: 0; transform: translateY(20px);
-  animation: fadeSlide 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.6s forwards;
-}
-
-.chip {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 18px; border-radius: 100px;
-  border: 1px solid rgba(212,168,67,0.15);
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(9px,1vw,11px); letter-spacing: 0.05em;
-  color: var(--t2); cursor: pointer;
-  transition: border-color 0.3s, color 0.3s, background 0.3s;
-}
-
-.chip:hover {
-  border-color: rgba(212,168,67,0.5);
-  color: var(--gold); background: rgba(212,168,67,0.06);
-}
-
-.chip-icon { color: var(--gold); font-size: 12px; }
-
-/* Portrait */
-.hero-portrait-wrap {
-  position: absolute;
-  right: clamp(20px,6vw,80px); bottom: 0;
-  z-index: 1;
-  opacity: 0; transform: translateY(30px);
-  animation: fadeSlide 0.8s cubic-bezier(0.25,0.1,0.25,1) 0.65s forwards;
-}
-
-.hero-portrait-img {
-  width: clamp(200px,28vw,420px);
-  display: block;
-  filter: saturate(0.7) brightness(0.9);
-  transition: filter 0.5s;
-}
-
-.hero-portrait-wrap:hover .hero-portrait-img {
-  filter: saturate(1) brightness(1);
-}
-
-/* Scroll cue */
-.scroll-cue {
-  position: absolute; bottom: clamp(20px,3vh,36px); left: clamp(24px,5vw,64px);
-  display: flex; align-items: center; gap: 12px;
-  animation: bob 2.8s ease-in-out infinite;
-  z-index: 2;
-}
-
-@keyframes bob {
-  0%, 100% { opacity: 0.3; transform: translateY(0); }
-  50%       { opacity: 0.8; transform: translateY(10px); }
-}
-
-.scroll-line { width: 48px; height: 1px; background: var(--gold); opacity: 0.4; }
-.scroll-txt {
-  font-family: 'Space Mono', monospace;
-  font-size: 8px; letter-spacing: 0.3em; color: var(--t3); text-transform: uppercase;
-}
-
-@keyframes fadeSlide {
-  to { opacity: 1; transform: none; }
-}
-
-/* ══════════════════════════════════════
-   MARQUEE SECTION
-══════════════════════════════════════ */
-.marquee-section {
-  background: var(--void);
-  padding: clamp(60px,10vh,120px) 0 clamp(30px,5vh,60px);
-  overflow: hidden; position: relative; z-index: 1;
-}
-
-.marquee-track { display: flex; gap: 16px; will-change: transform; }
-.marquee-track + .marquee-track { margin-top: 16px; }
-
-.marquee-item {
-  flex-shrink: 0;
-  width: clamp(280px,32vw,460px);
-  height: clamp(160px,18vw,280px);
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(212,168,67,0.08);
-  position: relative;
-  transition: border-color 0.4s, transform 0.4s;
-  cursor: pointer;
-}
-
-.marquee-item:hover {
-  border-color: rgba(212,168,67,0.3);
-  transform: scale(1.03);
-}
-
-.marquee-item-inner {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px;
-  background: var(--surface);
-  position: relative; overflow: hidden;
-}
-
-/* Decorative glow inside marquee tiles */
-.marquee-item-inner::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 30%, rgba(212,168,67,0.06), transparent 65%);
-  pointer-events: none;
-}
-
-.marquee-item-glyph {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px,4vw,52px);
-  font-style: italic;
-  background: linear-gradient(180deg, rgba(212,168,67,0.5), rgba(212,168,67,0.15));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1; margin-bottom: 12px;
-  position: relative; z-index: 1;
-}
-
-.marquee-item-title {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 600; text-transform: uppercase;
-  font-size: clamp(11px,1.4vw,15px);
-  letter-spacing: 0.12em; color: var(--t1);
-  text-align: center; position: relative; z-index: 1;
-}
-
-.marquee-item-sub {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(8px,0.9vw,10px);
-  color: var(--t3); letter-spacing: 0.1em;
-  margin-top: 4px; text-align: center; position: relative; z-index: 1;
-}
-
-/* ══════════════════════════════════════
-   SECTION GENERIC
-══════════════════════════════════════ */
-.section {
-  position: relative; z-index: 1;
-  padding: clamp(80px,12vh,140px) clamp(24px,5vw,80px);
-}
-
-.section-eyebrow {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(8px,1vw,10px);
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); opacity: 0.75;
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 12px;
-}
-
-.section-eyebrow::before {
-  content: ''; width: 24px; height: 1px;
-  background: var(--gold); opacity: 0.5;
-}
-
-.section-heading {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 900; text-transform: uppercase;
-  letter-spacing: -0.02em; line-height: 0.88;
-  font-size: clamp(52px,10vw,140px);
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: clamp(36px,6vh,72px);
-}
-
-/* ══════════════════════════════════════
-   ABOUT SECTION
-══════════════════════════════════════ */
-.about-section {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; position: relative; overflow: hidden;
-  padding: clamp(80px,12vh,140px) clamp(24px,5vw,80px);
-  background: var(--void);
-}
-
-/* Corner decorations */
-.about-deco {
-  position: absolute; pointer-events: none;
-  transition: opacity 0.4s, transform 0.6s;
-}
-
-.about-deco img {
-  display: block; width: 100%; height: 100%;
-  object-fit: contain; filter: drop-shadow(0 0 24px rgba(212,168,67,0.15));
-}
-
-.deco-tl {
-  top: 4%; left: 2%;
-  width: clamp(80px,14vw,200px); height: clamp(80px,14vw,200px);
-}
-
-.deco-bl {
-  bottom: 8%; left: 5%;
-  width: clamp(70px,12vw,180px); height: clamp(70px,12vw,180px);
-}
-
-.deco-tr {
-  top: 4%; right: 2%;
-  width: clamp(80px,14vw,200px); height: clamp(80px,14vw,200px);
-}
-
-.deco-br {
-  bottom: 8%; right: 5%;
-  width: clamp(80px,14vw,210px); height: clamp(80px,14vw,210px);
-}
-
-.about-inner {
-  display: flex; flex-direction: column;
-  align-items: center; gap: clamp(28px,5vh,56px);
-  max-width: 680px; position: relative; z-index: 1;
-}
-
-.about-heading {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 900; text-transform: uppercase;
-  letter-spacing: -0.02em; line-height: 0.88;
-  font-size: clamp(52px,10vw,140px);
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.about-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(17px,2vw,26px);
-  color: var(--t1); font-weight: 400;
-  line-height: 1.7; text-align: center;
-  max-width: 560px;
-}
-
-/* Character animation spans */
-.char-wrapper { display: inline; white-space: pre-wrap; }
-.char { display: inline; color: var(--t1); opacity: 0.18; will-change: opacity; }
-
-/* Contact button */
-.btn-contact {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: clamp(12px,1.5vh,16px) clamp(28px,3vw,48px);
-  border-radius: 100px;
-  background: linear-gradient(123deg, #18011F 7%, #8800a0 37%, #5a1d9e 72%, #9a3e00 100%);
-  box-shadow: 0 4px 4px rgba(181,1,167,0.2), inset 4px 4px 12px #5a1d9e;
-  outline: 2px solid rgba(255,255,255,0.1);
-  outline-offset: -3px;
-  color: #fff;
-  font-family: 'Kanit', sans-serif;
-  font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em;
-  font-size: clamp(11px,1.2vw,14px);
-  cursor: pointer; border: none;
-  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
-}
-
-.btn-contact:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 8px 24px rgba(181,1,167,0.35), inset 4px 4px 12px #5a1d9e;
-}
-
-/* ══════════════════════════════════════
-   SERVICES (WHITE BG)
-══════════════════════════════════════ */
-.services-section {
-  background: #ffffff;
-  border-radius: 50px 50px 0 0;
-  position: relative; z-index: 2;
-  padding: clamp(60px,10vh,120px) clamp(24px,5vw,80px);
-}
-
-.services-section .section-heading {
-  background: none;
-  -webkit-background-clip: unset; -webkit-text-fill-color: #0C0C0C;
-  background-clip: unset;
-  color: #0C0C0C;
-  text-align: center;
-}
-
-.services-list { max-width: 960px; margin: 0 auto; }
-
-.service-item {
-  display: flex; align-items: flex-start; gap: clamp(16px,3vw,40px);
-  padding: clamp(22px,3.5vh,44px) 0;
-  border-top: 1px solid rgba(12,12,12,0.12);
-  position: relative;
-  transition: background 0.3s;
-}
-
-.service-item:last-child { border-bottom: 1px solid rgba(12,12,12,0.12); }
-
-.service-item::before {
-  content: '';
-  position: absolute; inset: 0; left: -16px; right: -16px;
-  background: rgba(212,168,67,0.04);
-  opacity: 0;
-  transition: opacity 0.35s;
-  pointer-events: none;
-}
-
-.service-item:hover::before { opacity: 1; }
-
-.service-num {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 900;
-  font-size: clamp(48px,9vw,130px);
-  line-height: 0.85;
-  color: #0C0C0C;
-  flex-shrink: 0;
-  opacity: 0.12;
-  transition: opacity 0.35s;
-}
-
-.service-item:hover .service-num { opacity: 0.22; }
-
-.service-body { flex: 1; padding-top: clamp(8px,1.5vh,20px); }
-
-.service-name {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 600; text-transform: uppercase;
-  font-size: clamp(18px,2.5vw,34px);
-  color: #0C0C0C; letter-spacing: 0.04em;
-  line-height: 1.1;
-}
-
-.service-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(14px,1.5vw,20px);
-  color: rgba(12,12,12,0.5);
-  line-height: 1.7; margin-top: 8px;
-  max-width: 640px;
-}
-
-/* ══════════════════════════════════════
-   RESEARCH / PROJECTS SECTION
-══════════════════════════════════════ */
-.projects-section {
-  background: var(--void);
-  border-radius: 50px 50px 0 0;
-  position: relative; z-index: 3;
-  margin-top: -40px;
-  padding: clamp(60px,10vh,120px) clamp(24px,5vw,80px);
-}
-
-/* Sticky card stack */
-.cards-stack {
-  position: relative;
-  max-width: 1000px; margin: 0 auto;
-}
-
-.card-wrapper {
-  height: 85vh;
-  display: flex; align-items: flex-start;
-}
-
-.card-sticky {
-  position: sticky;
-  top: 120px;
-  width: 100%;
-  will-change: transform;
-}
-
-.proj-card {
-  border-radius: 40px;
-  border: 2px solid rgba(212,168,67,0.18);
-  background: var(--surface);
-  padding: clamp(20px,3vw,40px);
-  position: relative; overflow: hidden;
-  transition: border-color 0.4s;
-}
-
-.proj-card:hover { border-color: rgba(212,168,67,0.4); }
-
-/* Card glow */
-.proj-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(212,168,67,0.5), transparent);
-}
-
-.proj-card-top {
-  display: flex; align-items: center;
-  justify-content: space-between; flex-wrap: wrap;
-  gap: 12px; margin-bottom: clamp(16px,2.5vh,28px);
-}
-
-.proj-num {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 900;
-  font-size: clamp(48px,8vw,100px);
-  line-height: 0.85;
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.35;
-}
-
-.proj-meta { display: flex; flex-direction: column; gap: 4px; flex: 1; padding-left: 16px; }
-
-.proj-category {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(8px,0.9vw,10px); letter-spacing: 0.2em;
-  color: var(--gold); text-transform: uppercase;
-}
-
-.proj-title {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 700; text-transform: uppercase;
-  font-size: clamp(18px,3vw,38px);
-  color: var(--luminous); letter-spacing: 0.04em;
-  line-height: 1.1;
-}
-
-.btn-live {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 24px; border-radius: 100px;
-  border: 2px solid rgba(212,168,67,0.35);
-  color: var(--t1);
-  font-family: 'Kanit', sans-serif;
-  font-weight: 500; text-transform: uppercase;
-  font-size: clamp(10px,1.1vw,13px); letter-spacing: 0.14em;
-  cursor: pointer; background: transparent;
-  transition: background 0.3s, border-color 0.3s, color 0.3s;
-  flex-shrink: 0;
-}
-
-.btn-live:hover {
-  background: rgba(212,168,67,0.12);
-  border-color: rgba(212,168,67,0.7);
-  color: var(--gold);
-}
-
-/* Card image grid */
-.proj-imgs {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 12px;
-}
-
-.proj-img-col { display: flex; flex-direction: column; gap: 12px; }
-
-.proj-img {
-  border-radius: 24px;
-  background: var(--deep);
-  overflow: hidden;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 8px;
-  border: 1px solid rgba(212,168,67,0.06);
-  transition: border-color 0.4s, transform 0.4s;
-}
-
-.proj-img:hover {
-  border-color: rgba(212,168,67,0.2);
-  transform: scale(1.02);
-}
-
-.proj-img-glyph {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(22px,3vw,40px);
-  font-style: italic;
-  color: rgba(212,168,67,0.3);
-  text-align: center; padding: 0 12px;
-  line-height: 1.3;
-}
-
-.proj-img-label {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(7px,0.8vw,9px);
-  letter-spacing: 0.15em; color: var(--t3);
-  text-transform: uppercase; text-align: center;
-  padding: 0 12px;
-}
-
-.proj-img-sm { height: clamp(120px,14vw,200px); }
-.proj-img-md { height: clamp(150px,18vw,250px); }
-.proj-img-tall { height: 100%; min-height: clamp(280px,36vw,460px); }
-
-/* ══════════════════════════════════════
-   QUALIFICATIONS (Dark bg)
-══════════════════════════════════════ */
-.qual-section {
-  background: var(--void);
-  padding: clamp(60px,10vh,120px) clamp(24px,5vw,80px);
-  position: relative; z-index: 1;
-}
-
-.qual-grid { display: grid; gap: 14px; max-width: 880px; }
-
-.qual-card {
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  align-items: start; gap: 20px;
-  padding: clamp(18px,2.5vh,28px) clamp(20px,3vw,34px);
-  background: rgba(12,12,26,0.85);
-  border: 1px solid rgba(212,168,67,0.08);
-  position: relative; overflow: hidden;
-  transition: border-color 0.4s, box-shadow 0.4s, transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.qual-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(212,168,67,0.04) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.qual-card::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(212,168,67,0.5), transparent);
-  opacity: 0; transition: opacity 0.4s;
-}
-
-.qual-card:hover {
-  border-color: rgba(212,168,67,0.3);
-  box-shadow: 0 8px 48px rgba(212,168,67,0.05);
-  transform: translateX(8px);
-}
-
-.qual-card:hover::after { opacity: 1; }
-
-.qual-idx {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 900;
-  font-size: clamp(32px,4vw,52px);
-  line-height: 1; text-align: right;
-  color: rgba(212,168,67,0.14);
-}
-
-.qual-degree {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(18px,2.2vw,24px);
-  font-weight: 400; color: var(--luminous); line-height: 1.3;
-}
-
-.qual-inst {
-  font-size: clamp(12px,1.4vw,15px);
-  color: var(--t2); margin-top: 4px; line-height: 1.5;
-}
-
-.qual-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-
-.tag {
-  display: inline-block;
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(7px,0.8vw,9px); letter-spacing: 0.12em;
-  padding: 3px 10px; border-radius: 2px; text-transform: uppercase;
-}
-
-.tag-gold { color: var(--gold); border: 1px solid rgba(212,168,67,0.32); background: rgba(212,168,67,0.07); }
-.tag-blue { color: var(--blue); border: 1px solid rgba(74,127,165,0.32); background: rgba(74,127,165,0.07); }
-.tag-vi   { color: var(--violet); border: 1px solid rgba(122,95,165,0.32); background: rgba(122,95,165,0.07); }
-
-.qual-year {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(10px,1.1vw,12px); color: var(--t3);
-  white-space: nowrap; padding-top: 4px;
-}
-
-/* ══════════════════════════════════════
-   EXPERIENCE TIMELINE
-══════════════════════════════════════ */
-.exp-section {
-  padding: clamp(60px,10vh,120px) clamp(24px,5vw,80px);
-  background: var(--void); position: relative; z-index: 1;
-}
-
-.timeline { position: relative; padding-left: 44px; display: grid; gap: 18px; max-width: 880px; }
-
-.timeline::before {
-  content: ''; position: absolute;
-  left: 12px; top: 16px; bottom: 16px; width: 1px;
-  background: linear-gradient(to bottom, var(--gold), rgba(212,168,67,0.06));
-}
-
-.tl-item {
-  position: relative;
-  background: rgba(12,12,26,0.85);
-  border: 1px solid rgba(212,168,67,0.08);
-  padding: clamp(18px,2.5vh,28px) clamp(20px,3vw,34px);
-  transition: border-color 0.4s, box-shadow 0.4s, transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
-  overflow: hidden;
-}
-
-.tl-item::before {
-  content: ''; position: absolute;
-  left: -38px; top: clamp(18px,2.5vh,26px);
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--void); border: 2px solid var(--gold);
-  box-shadow: 0 0 16px rgba(212,168,67,0.6);
-  transition: box-shadow 0.4s;
-}
-
-.tl-item:hover { border-color: rgba(212,168,67,0.3); transform: translateX(8px); }
-.tl-item:hover::before { box-shadow: 0 0 28px rgba(212,168,67,1); }
-
-.tl-current::before { background: var(--gold); }
-
-.tl-header {
-  display: flex; align-items: flex-start;
-  justify-content: space-between; gap: 16px; flex-wrap: wrap;
-}
-
-.tl-role {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 600; font-size: clamp(18px,2.5vw,28px);
-  color: var(--luminous); line-height: 1.15;
-}
-
-.tl-period {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(8px,1vw,10px); letter-spacing: 0.12em;
-  color: var(--gold); padding: 4px 12px;
-  border: 1px solid rgba(212,168,67,0.22);
-  white-space: nowrap; flex-shrink: 0;
-}
-
-.tl-dept {
-  font-size: clamp(12px,1.4vw,15px);
-  color: var(--t2); margin-top: 6px; line-height: 1.5;
-}
-
-/* ══════════════════════════════════════
-   BOOKS
-══════════════════════════════════════ */
-.books-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: clamp(16px,2.5vw,28px); max-width: 880px;
-}
-
-.book-card {
-  background: rgba(12,12,26,0.85);
-  border: 1px solid rgba(212,168,67,0.1);
-  padding: clamp(24px,3vw,40px);
-  position: relative; overflow: hidden;
-  transition: border-color 0.4s, box-shadow 0.4s, transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.book-card::before {
-  content: ''; position: absolute;
-  top: 0; left: 0; width: 3px; height: 100%;
-  background: linear-gradient(to bottom, var(--gold), rgba(212,168,67,0.1));
-}
-
-.book-card:hover {
-  border-color: rgba(212,168,67,0.35);
-  box-shadow: 0 16px 60px rgba(212,168,67,0.07);
-  transform: translateY(-10px);
-}
-
-.book-badge {
-  font-family: 'Space Mono', monospace; font-size: 8px;
-  letter-spacing: 0.22em; color: var(--gold); opacity: 0.55;
-  text-transform: uppercase; margin-bottom: 14px;
-}
-
-.book-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(17px,2.2vw,24px);
-  font-style: italic; font-weight: 400;
-  color: var(--luminous); line-height: 1.35; margin-bottom: 10px;
-}
-
-.book-pub { font-size: clamp(11px,1.3vw,14px); color: var(--t2); line-height: 1.5; }
-
-.book-isbn {
-  font-family: 'Space Mono', monospace; font-size: 9px;
-  color: var(--t3); margin-top: 12px; letter-spacing: 0.05em;
-}
-
-/* ══════════════════════════════════════
-   JOURNALS GRID
-══════════════════════════════════════ */
-.journals-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 14px; max-width: 880px;
-}
-
-.journal-card {
-  background: rgba(212,168,67,0.02);
-  border: 1px solid rgba(212,168,67,0.07);
-  padding: clamp(18px,2.5vh,26px) clamp(18px,2.5vw,28px);
-  transition: border-color 0.35s, background 0.35s, transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.journal-card:hover {
-  border-color: rgba(212,168,67,0.24);
-  background: rgba(212,168,67,0.05);
-  transform: translateY(-6px);
-}
-
-.journal-icon { font-size: 18px; margin-bottom: 10px; opacity: 0.65; }
-
-.journal-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(16px,2vw,21px); font-style: italic; color: var(--t1);
-}
-
-.journal-role-badge {
-  display: inline-block;
-  font-family: 'Space Mono', monospace; font-size: 8px;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--gold); border: 1px solid rgba(212,168,67,0.25);
-  padding: 2px 8px; margin: 8px 0;
-}
-
-.journal-period { font-size: clamp(11px,1.2vw,13px); color: var(--t3); line-height: 1.5; }
-
-/* ══════════════════════════════════════
-   RESEARCH PAPERS
-══════════════════════════════════════ */
-.pubs-grid { display: grid; gap: 10px; max-width: 880px; }
-
-.pub-card {
-  display: grid; grid-template-columns: 50px 1fr;
-  gap: 16px; align-items: start;
-  padding: clamp(14px,2vh,20px) clamp(18px,2.5vw,26px);
-  background: rgba(212,168,67,0.02);
-  border: 1px solid rgba(212,168,67,0.06);
-  position: relative; overflow: hidden;
-  transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.pub-card::before {
-  content: ''; position: absolute;
-  left: 0; top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-  opacity: 0; transition: opacity 0.3s;
-}
-
-.pub-card:hover {
-  border-color: rgba(212,168,67,0.2);
-  background: rgba(212,168,67,0.04);
-  transform: translateX(6px);
-}
-
-.pub-card:hover::before { opacity: 1; }
-
-.pub-num {
-  font-family: 'Kanit', sans-serif; font-weight: 900;
-  font-size: clamp(26px,3.5vw,42px); line-height: 1;
-  text-align: right; color: rgba(212,168,67,0.17); padding-top: 2px;
-}
-
-.pub-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(15px,1.8vw,20px); font-weight: 400;
-  color: var(--t1); line-height: 1.45;
-}
-
-.pub-meta {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(8px,0.9vw,10px); color: var(--t3);
-  margin-top: 5px; letter-spacing: 0.04em;
-}
-
-.pub-issn {
-  display: inline-block;
-  font-family: 'Space Mono', monospace; font-size: 8px;
-  color: var(--blue); border: 1px solid rgba(74,127,165,0.25);
-  padding: 1px 6px; margin-left: 6px; vertical-align: middle;
-}
-
-/* ══════════════════════════════════════
-   CONFERENCES
-══════════════════════════════════════ */
-.conf-grid { display: grid; gap: 10px; max-width: 880px; }
-
-.conf-card {
-  display: grid; grid-template-columns: 48px 1fr auto;
-  align-items: start; gap: 14px;
-  padding: clamp(12px,1.8vh,18px) clamp(16px,2vw,22px);
-  background: rgba(212,168,67,0.02);
-  border: 1px solid rgba(212,168,67,0.05);
-  transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.conf-card:hover {
-  border-color: rgba(212,168,67,0.18);
-  background: rgba(212,168,67,0.04);
-  transform: translateX(4px);
-}
-
-.conf-num {
-  font-family: 'Space Mono', monospace; font-size: 10px;
-  color: rgba(212,168,67,0.28); text-align: right; padding-top: 3px;
-}
-
-.conf-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(14px,1.7vw,18px); color: var(--t1); line-height: 1.4;
-}
-
-.conf-host { font-size: clamp(10px,1.1vw,12px); color: var(--t3); margin-top: 3px; line-height: 1.4; }
-
-.badge {
-  font-family: 'Space Mono', monospace; font-size: 8px;
-  letter-spacing: 0.12em; padding: 3px 8px;
-  border: 1px solid; text-transform: uppercase;
-  white-space: nowrap; align-self: start; border-radius: 2px;
-}
-
-.badge-intl { color: var(--gold); border-color: rgba(212,168,67,0.3); background: rgba(212,168,67,0.06); }
-.badge-natl { color: var(--blue); border-color: rgba(74,127,165,0.3); background: rgba(74,127,165,0.06); }
-
-/* ══════════════════════════════════════
-   MEMBERS
-══════════════════════════════════════ */
-.member-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 12px; max-width: 880px;
-}
-
-.member-card {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: clamp(14px,2vh,18px) clamp(16px,2vw,22px);
-  background: rgba(212,168,67,0.02);
-  border: 1px solid rgba(212,168,67,0.06);
-  font-size: clamp(12px,1.3vw,14px); color: var(--t2); line-height: 1.55;
-  transition: border-color 0.35s, background 0.35s, transform 0.5s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.member-card:hover {
-  border-color: rgba(212,168,67,0.22);
-  background: rgba(212,168,67,0.04);
-  transform: scale(1.025);
-}
-
-.member-orb {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--gold); box-shadow: 0 0 8px rgba(212,168,67,0.7);
-  flex-shrink: 0; margin-top: 7px;
-}
-
-/* ══════════════════════════════════════
-   FOOTER
-══════════════════════════════════════ */
-.footer {
-  background: var(--void);
-  border-top: 1px solid rgba(212,168,67,0.08);
-  padding: clamp(36px,6vh,72px) clamp(24px,5vw,80px);
-  display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 24px;
-  position: relative; z-index: 1;
-}
-
-.footer-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(20px,2.5vw,28px); font-style: italic; color: var(--gold); opacity: 0.7;
-}
-
-.footer-meta {
-  text-align: right;
-}
-
-.footer-inst {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
-  font-size: clamp(12px,1.4vw,16px); color: var(--t1); margin-bottom: 4px;
-}
-
-.footer-copy {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(8px,0.9vw,10px); color: var(--t3); letter-spacing: 0.1em;
-}
-
-/* ══════════════════════════════════════
-   REVEAL UTILITY
-══════════════════════════════════════ */
-.reveal {
-  opacity: 0; transform: translateY(32px);
-  transition: opacity 0.75s cubic-bezier(0.25,0.1,0.25,1),
-              transform 0.75s cubic-bezier(0.25,0.1,0.25,1);
-}
-
-.reveal.left  { transform: translateX(-32px); }
-.reveal.right { transform: translateX(32px); }
-
-.reveal.in { opacity: 1; transform: none; }
-
-/* Stagger via data attr */
-.reveal[data-d="1"]  { transition-delay: 0.05s; }
-.reveal[data-d="2"]  { transition-delay: 0.10s; }
-.reveal[data-d="3"]  { transition-delay: 0.15s; }
-.reveal[data-d="4"]  { transition-delay: 0.20s; }
-.reveal[data-d="5"]  { transition-delay: 0.25s; }
-.reveal[data-d="6"]  { transition-delay: 0.30s; }
-.reveal[data-d="7"]  { transition-delay: 0.35s; }
-.reveal[data-d="8"]  { transition-delay: 0.40s; }
-.reveal[data-d="9"]  { transition-delay: 0.45s; }
-.reveal[data-d="10"] { transition-delay: 0.50s; }
-.reveal[data-d="11"] { transition-delay: 0.55s; }
-.reveal[data-d="12"] { transition-delay: 0.60s; }
-
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
-@media (max-width: 700px) {
-  .books-grid,
-  .journals-grid,
-  .member-grid { grid-template-columns: 1fr; }
-  .conf-card   { grid-template-columns: 32px 1fr; }
-  .badge       { display: none; }
-  .qual-card   { grid-template-columns: 40px 1fr auto; }
-  .r1, .r2, .r3, .hero-mandala { display: none; }
-  .deco-tl, .deco-bl, .deco-tr, .deco-br { display: none; }
-  .proj-imgs   { grid-template-columns: 1fr; }
-  .proj-img-tall { min-height: 200px; height: 200px; }
-  .nav-links   { display: none; }
-  .hero-portrait-wrap { display: none; }
-  .footer      { flex-direction: column; text-align: center; }
-  .footer-meta { text-align: center; }
-}
-
-@media (max-width: 480px) {
-  .hero-stats  { flex-wrap: wrap; }
-  .stat        { padding: 10px 16px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: duration 0.01ms !important; }
-}
+═══════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:calc(var(--nav-h) + 30px) clamp(20px,5vw,80px) 70px;
+  position:relative;overflow:hidden;text-align:center;
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(157,113,248,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(157,113,248,0.035) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,black 20%,transparent 75%);
+  transform:perspective(700px) rotateX(18deg);transform-origin:50% 0;
+}
+.orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0;filter:blur(90px)}
+.o1{width:clamp(260px,36vw,560px);height:clamp(260px,36vw,560px);top:-8%;right:-4%;background:radial-gradient(circle,rgba(157,113,248,0.18) 0%,transparent 70%);animation:ofloat 18s ease-in-out infinite}
+.o2{width:clamp(160px,24vw,360px);height:clamp(160px,24vw,360px);bottom:6%;left:-5%;background:radial-gradient(circle,rgba(56,217,245,0.11) 0%,transparent 70%);animation:ofloat 22s ease-in-out infinite;animation-delay:-9s}
+.o3{width:clamp(120px,16vw,260px);height:clamp(120px,16vw,260px);top:32%;left:28%;background:radial-gradient(circle,rgba(201,168,76,0.09) 0%,transparent 70%);animation:ofloat 26s ease-in-out infinite;animation-delay:-15s}
+@keyframes ofloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-26px) scale(1.04)}}
+.hero-content{position:relative;z-index:2;max-width:960px;width:100%}
+.badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 22px;border-radius:100px;
+  background:rgba(157,113,248,0.14);border:1.5px solid rgba(157,113,248,0.45);
+  box-shadow:0 0 20px rgba(157,113,248,0.25);
+  font-family:'Space Mono',monospace;font-size:clamp(11px,1.2vw,14px);font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:#e0d0ff;margin-bottom:clamp(20px,3vh,36px);
+}
+.badge-dot{
+  width:8px;height:8px;border-radius:50%;background:#c084fc;
+  box-shadow:0 0 12px #c084fc;
+  animation:pdot 2.2s ease-in-out infinite;
+}
+@keyframes pdot{0%,100%{box-shadow:0 0 6px #c084fc}50%{box-shadow:0 0 18px #c084fc,0 0 36px rgba(192,132,252,.6)}}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  line-height:0.9;letter-spacing:-0.01em;
+  position:relative;z-index:2;
+  margin-bottom:clamp(10px,1.8vh,20px);
+}
+.hero-name .n-first{
+  display:block;
+  font-size:clamp(72px,14vw,190px);
+  font-weight:300;font-style:italic;
+  background:linear-gradient(135deg,#b8cce0 0%,#ffffff 45%,#a490e8 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-name .n-divider{
+  display:block;
+  width:clamp(50px,8vw,110px);height:1px;
+  background:linear-gradient(90deg,transparent,var(--violet),var(--cyan),transparent);
+  margin:clamp(8px,1.2vh,16px) auto;
+}
+.hero-name .n-last{
+  display:block;
+  font-size:clamp(22px,4.5vw,60px);
+  font-weight:600;font-style:normal;letter-spacing:0.38em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 55%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-desc{
+  margin-top:clamp(18px,2.5vh,28px);
+  max-width:640px;margin-left:auto;margin-right:auto;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(16px,2vw,24px);
+  font-style:italic;font-weight:400;color:rgba(240,237,232,0.88);line-height:1.65;
+  text-shadow:0 1px 4px rgba(0,0,0,0.8);
+}
+.hero-stats{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:10px;margin-top:clamp(22px,3.5vh,40px);
+}
+.stat{
+  padding:clamp(10px,1.4vh,16px) clamp(16px,2.2vw,28px);
+  border-radius:100px;
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  transition:background .3s,border-color .3s,transform .3s;cursor:default;
+}
+.stat:hover{background:var(--glass2);border-color:var(--border2);transform:translateY(-3px)}
+.stat-v{
+  font-weight:900;font-size:clamp(22px,3.5vw,44px);line-height:1;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-k{font-family:'Space Mono',monospace;font-size:clamp(7px,0.85vw,10px);letter-spacing:.18em;color:rgba(240,237,232,0.75);text-transform:uppercase;margin-top:4px;text-align:center}
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:clamp(20px,3.2vh,38px)}
+.btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:clamp(11px,1.4vh,15px) clamp(26px,3vw,42px);border-radius:100px;
+  background:linear-gradient(135deg,var(--violet),var(--cyan));
+  color:#fff;font-weight:600;text-transform:uppercase;
+  font-size:clamp(10px,1.1vw,13px);letter-spacing:.14em;
+  text-decoration:none;border:none;cursor:pointer;
+  box-shadow:0 4px 28px rgba(157,113,248,0.38);
+  transition:transform .3s,box-shadow .3s;
+}
+.btn-p:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 36px rgba(157,113,248,0.55)}
+.btn-g{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:clamp(11px,1.4vh,15px) clamp(26px,3vw,42px);border-radius:100px;
+  background:transparent;border:1px solid var(--border2);
+  color:var(--t2);font-weight:500;text-transform:uppercase;
+  font-size:clamp(10px,1.1vw,13px);letter-spacing:.14em;
+  text-decoration:none;cursor:pointer;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.btn-g:hover{background:var(--glass2);color:var(--t1);border-color:var(--border2)}
+.pill-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:clamp(18px,2.8vh,32px)}
+.pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:100px;
+  background:var(--glass);border:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:clamp(7px,.85vw,9px);letter-spacing:.08em;color:var(--t2);
+  transition:background .3s,color .3s,border-color .3s;
+}
+.pill:hover{background:var(--glass2);color:var(--t1);border-color:var(--border2)}
+.pill-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.scroll-cue{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;z-index:2;
+  animation:bob 2.8s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{opacity:.2;transform:translateX(-50%) translateY(0)}50%{opacity:.6;transform:translateX(-50%) translateY(8px)}}
+.scroll-cue-line{width:38px;height:1px;background:var(--t3)}
+.scroll-cue-txt{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.32em;text-transform:uppercase;color:var(--t3)}
+
+/* ═══════════════════════════════
+   SECTION BASE
+═══════════════════════════════ */
+.section{padding:clamp(80px,12vh,150px) clamp(20px,5vw,80px);position:relative;overflow:hidden}
+.stag{
+  font-family:'Space Mono',monospace;font-size:clamp(7px,.85vw,9px);
+  letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.stag::before{content:'';width:22px;height:1px;background:var(--cyan);opacity:.5}
+.sec-h{
+  font-family:'Kanit',sans-serif;font-weight:900;text-transform:uppercase;
+  letter-spacing:-0.025em;line-height:0.88;
+  font-size:clamp(46px,9vw,118px);
+  background:linear-gradient(180deg,#7a82a0 0%,#c0d0e0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:clamp(36px,6vh,80px);
+}
+
+/* ═══════════════════════════════
+   MARQUEE
+═══════════════════════════════ */
+.marquee-wrap{padding:clamp(50px,8vh,90px) 0;overflow:hidden;background:var(--bg2);position:relative}
+.mrow{display:flex;gap:14px;will-change:transform}
+.mrow+.mrow{margin-top:14px}
+.m-card{
+  flex-shrink:0;
+  width:clamp(210px,25vw,350px);height:clamp(120px,14vw,190px);
+  border-radius:20px;background:var(--glass);border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:7px;padding:16px;
+  transition:border-color .3s,transform .3s;cursor:default;
+}
+.m-card:hover{border-color:var(--border2);transform:scale(1.04)}
+.m-glyph{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,34px);font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;
+}
+.m-title{font-weight:600;font-size:clamp(10px,1.2vw,13px);text-transform:uppercase;letter-spacing:.1em;color:var(--t1);text-align:center}
+.m-sub{font-family:'Space Mono',monospace;font-size:clamp(7px,.75vw,8px);color:var(--t3);letter-spacing:.06em;text-align:center}
+
+/* ═══════════════════════════════
+   RESEARCH STATEMENT
+═══════════════════════════════ */
+.rs-sec{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+.rs-card{
+  max-width:900px;
+  background:var(--glass);backdrop-filter:blur(22px);
+  border:1px solid rgba(201,168,76,0.2);border-radius:32px;
+  padding:clamp(32px,5vw,64px);
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(201,168,76,0.06);
+}
+.rs-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--cyan),transparent);
+}
+.rs-opener{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,3vw,34px);font-weight:300;font-style:italic;
+  color:var(--t1);line-height:1.5;margin-bottom:clamp(20px,3vh,32px);
+}
+.rs-opener em{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-style:normal;font-weight:600;
+}
+.rs-body{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(15px,1.6vw,20px);color:var(--t2);line-height:1.85;
+}
+.rs-punchline{
+  margin-top:clamp(20px,3vh,30px);
+  font-family:'Kanit',sans-serif;font-weight:700;
+  font-size:clamp(14px,1.8vw,22px);text-transform:uppercase;letter-spacing:.08em;
+  background:linear-gradient(135deg,var(--violet),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ═══════════════════════════════
+   RESEARCH FOCUS — 3 PILLARS
+═══════════════════════════════ */
+.about-sec{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,22px);max-width:1200px}
+.a-card{
+  background:var(--glass);backdrop-filter:blur(22px) saturate(160%);
+  border:1px solid var(--border);border-radius:28px;
+  padding:clamp(24px,3vw,40px);position:relative;overflow:hidden;
+  box-shadow:0 4px 32px rgba(0,0,0,0.25);
+  transition:border-color .4s,box-shadow .4s,transform .5s cubic-bezier(.25,.1,.25,1);
+}
+.a-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(135deg,rgba(157,113,248,0.05) 0%,transparent 60%);
+}
+.a-card:hover{
+  border-color:rgba(157,113,248,0.22);
+  box-shadow:0 0 0 1px rgba(157,113,248,0.08),0 20px 60px rgba(0,0,0,0.4);
+  transform:translateY(-6px);
+}
+.a-icon{font-size:clamp(30px,4vw,48px);margin-bottom:13px;display:block;position:relative;z-index:1}
+.a-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--violet);opacity:.8;margin-bottom:7px;position:relative;z-index:1}
+.a-h{font-weight:700;font-size:clamp(17px,2vw,24px);color:var(--t1);line-height:1.2;margin-bottom:11px;position:relative;z-index:1}
+.a-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(14px,1.5vw,18px);color:var(--t2);line-height:1.78;position:relative;z-index:1}
+.a-moat{
+  margin-top:14px;padding:10px 14px;border-radius:12px;
+  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--gold);
+  position:relative;z-index:1;
+}
+
+/* ═══════════════════════════════
+   PROJECTS — STICKY STACK
+═══════════════════════════════ */
+.proj-sec{background:var(--bg)}
+.pstack{max-width:1000px;margin:0 auto}
+.pw{height:90vh;display:flex;align-items:flex-start}
+.proj-card{
+  position:sticky;width:100%;
+  border-radius:28px;border:1px solid var(--border);
+  background:rgba(7,7,26,0.92);backdrop-filter:blur(24px);
+  padding:clamp(18px,3vw,36px);overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,0.4);
+  transition:border-color .4s;will-change:transform;
+}
+.proj-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(157,113,248,.6),rgba(56,217,245,.6),transparent);
+}
+.proj-card:hover{border-color:rgba(157,113,248,.3)}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:clamp(14px,2.5vh,24px)}
+.proj-num{
+  font-family:'Kanit',sans-serif;font-weight:900;
+  font-size:clamp(52px,9vw,110px);line-height:0.85;
+  background:linear-gradient(180deg,#777e8e 0%,#c0d0e0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:.2;
+}
+.proj-inf{flex:1;padding-left:12px;padding-top:6px}
+.proj-cat{font-family:'Space Mono',monospace;font-size:clamp(7px,.85vw,9px);letter-spacing:.2em;color:var(--cyan);text-transform:uppercase;margin-bottom:5px}
+.proj-title{font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(18px,3.5vw,44px);text-transform:uppercase;color:var(--t1);letter-spacing:.02em;line-height:1.05}
+.ptags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ptag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;border:1px solid}
+.tvi{color:var(--violet);border-color:rgba(157,113,248,.35);background:rgba(157,113,248,.07)}
+.tcy{color:var(--cyan);border-color:rgba(56,217,245,.35);background:rgba(56,217,245,.07)}
+.tgo{color:var(--gold);border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.07)}
+.tro{color:var(--rose);border-color:rgba(244,114,182,.35);background:rgba(244,114,182,.07)}
+.tgr{color:var(--green);border-color:rgba(74,222,128,.35);background:rgba(74,222,128,.07)}
+.pbody{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ppanel{
+  border-radius:20px;
+  background:rgba(255,255,255,.024);border:1px solid var(--border);
+  padding:clamp(14px,2vw,22px);display:flex;flex-direction:column;gap:7px;
+  transition:background .3s,border-color .3s,transform .3s,box-shadow .3s;
+  box-shadow:0 2px 16px rgba(0,0,0,0.2);
+}
+.ppanel:hover{background:rgba(157,113,248,.06);border-color:rgba(157,113,248,.2);transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,0.35)}
+.ppanel-icon{font-size:clamp(22px,2.8vw,36px)}
+.ppanel-t{font-weight:600;font-size:clamp(12px,1.5vw,17px);color:var(--t1)}
+.ppanel-d{font-size:clamp(10px,1.1vw,13px);color:var(--t2);line-height:1.6}
+
+/* ═══════════════════════════════
+   SCHOLARLY OUTPUTS
+═══════════════════════════════ */
+.out-sec{background:var(--bg2)}
+.out-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;max-width:1100px}
+.out-card{
+  background:var(--glass);backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:24px;
+  padding:clamp(20px,3vw,32px);position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,0.22);
+  transition:border-color .4s,transform .5s cubic-bezier(.25,.1,.25,1),box-shadow .4s;
+}
+.out-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--gold),var(--violet));border-radius:0 0 0 24px;
+}
+.out-card:hover{border-color:rgba(201,168,76,.28);transform:translateX(6px) translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.out-type{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.out-title{font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(14px,1.7vw,20px);color:var(--t1);line-height:1.2;margin-bottom:10px}
+.out-desc{font-family:'Cormorant Garamond',serif;font-size:clamp(13px,1.4vw,17px);color:var(--t2);line-height:1.7}
+
+/* ═══════════════════════════════
+   EDUCATION & CREDENTIALS
+═══════════════════════════════ */
+.exp-sec{background:var(--bg)}
+.tl{position:relative;padding-left:40px;max-width:800px;display:flex;flex-direction:column;gap:18px}
+.tl::before{
+  content:'';position:absolute;left:12px;top:12px;bottom:12px;width:1px;
+  background:linear-gradient(to bottom,var(--violet),rgba(56,217,245,.3),transparent);
+}
+.tl-card{
+  background:var(--glass);backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:24px;
+  padding:clamp(16px,2.5vh,26px) clamp(18px,3vw,30px);position:relative;
+  box-shadow:0 4px 24px rgba(0,0,0,0.22);
+  transition:border-color .4s,transform .5s cubic-bezier(.25,.1,.25,1),box-shadow .4s;
+}
+.tl-card::before{
+  content:'';position:absolute;left:-34px;top:clamp(18px,2.5vh,24px);
+  width:12px;height:12px;border-radius:50%;
+  background:var(--bg2);border:2px solid var(--violet);
+  box-shadow:0 0 14px rgba(157,113,248,.7);
+}
+.tl-card.cur::before{background:var(--violet);animation:pring 2s ease-in-out infinite}
+@keyframes pring{0%,100%{box-shadow:0 0 18px rgba(157,113,248,.8)}50%{box-shadow:0 0 32px rgba(157,113,248,1),0 0 48px rgba(56,217,245,.3)}}
+.tl-card:hover{border-color:rgba(157,113,248,.25);box-shadow:0 0 0 1px rgba(157,113,248,.08),0 12px 40px rgba(0,0,0,.4);transform:translateX(8px)}
+.tl-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.tl-role{font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(15px,2.2vw,23px);color:var(--t1);line-height:1.15}
+.tl-period{font-family:'Space Mono',monospace;font-size:clamp(7px,.85vw,9px);letter-spacing:.1em;color:var(--cyan);padding:4px 12px;border:1px solid rgba(56,217,245,.25);border-radius:100px;white-space:nowrap;flex-shrink:0}
+.tl-org{font-size:clamp(11px,1.3vw,14px);color:var(--t2);margin-bottom:5px}
+.tl-desc{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.4vw,16px);color:var(--t3);line-height:1.65;border-top:1px solid var(--border);padding-top:9px;margin-top:9px}
+
+/* ═══════════════════════════════
+   SKILLS
+═══════════════════════════════ */
+.skill-sec{background:var(--bg2)}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;max-width:1100px}
+.s-card{
+  background:var(--glass);backdrop-filter:blur(14px);
+  border:1px solid var(--border);border-radius:24px;
+  padding:clamp(20px,2.8vw,32px);
+  position:relative;overflow:hidden;cursor:default;
+  box-shadow:0 4px 24px rgba(0,0,0,0.22);
+  transition:border-color .4s,transform .5s cubic-bezier(.25,.1,.25,1),box-shadow .4s;
+}
+.s-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(135deg,rgba(157,113,248,0.05) 0%,transparent 60%);
+}
+.s-card:hover{
+  border-color:rgba(157,113,248,.25);
+  transform:translateY(-8px);
+  box-shadow:0 20px 56px rgba(0,0,0,0.4),0 0 0 1px rgba(157,113,248,.08);
+}
+.s-icon{font-size:clamp(26px,3.5vw,42px);margin-bottom:12px;display:block;position:relative;z-index:1}
+.s-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(14px,1.7vw,19px);color:var(--t1);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;position:relative;z-index:1}
+.s-desc{font-size:clamp(11px,1.2vw,13px);color:var(--t2);line-height:1.6;position:relative;z-index:1}
+.s-lvl{display:flex;gap:5px;margin-top:12px;position:relative;z-index:1}
+.lvl-p{height:3px;flex:1;border-radius:99px;background:var(--border)}
+.lvl-p.on{background:linear-gradient(90deg,var(--violet),var(--cyan))}
+
+/* ═══════════════════════════════
+   INSTITUTIONAL CONTEXT
+═══════════════════════════════ */
+.inst-sec{background:var(--bg)}
+.inst-card{
+  max-width:1000px;
+  background:var(--glass);backdrop-filter:blur(24px);
+  border:1px solid rgba(201,168,76,0.3);border-radius:32px;
+  padding:clamp(32px,5vw,60px);position:relative;overflow:hidden;
+  box-shadow:0 4px 40px rgba(0,0,0,0.3),0 0 60px rgba(201,168,76,0.04);
+}
+.inst-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(201,168,76,0.05) 0%,transparent 50%);
+  pointer-events:none;
+}
+.inst-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(22px,3.5vw,42px);font-weight:300;color:var(--t1);
+  line-height:1.3;margin-bottom:clamp(16px,2.5vh,26px);position:relative;z-index:1;
+}
+.inst-title strong{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-weight:600;font-style:normal;
+}
+.inst-body{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(15px,1.6vw,20px);
+  color:var(--t2);line-height:1.85;margin-bottom:clamp(20px,3vh,32px);position:relative;z-index:1;
+}
+.inst-bullets{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;z-index:1}
+.inst-bullet{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:14px 18px;border-radius:16px;
+  background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.12);
+}
+.inst-bullet-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.inst-bullet-t{font-family:'Kanit',sans-serif;font-weight:600;font-size:clamp(12px,1.4vw,16px);color:var(--t1);margin-bottom:3px}
+.inst-bullet-d{font-size:clamp(10px,1.1vw,13px);color:var(--t2);line-height:1.5}
+.inst-moat{
+  margin-top:clamp(20px,3vh,28px);padding:14px 20px;border-radius:16px;
+  background:rgba(157,113,248,0.07);border:1px solid rgba(157,113,248,0.18);
+  font-family:'Cormorant Garamond',serif;font-size:clamp(14px,1.5vw,18px);
+  font-style:italic;color:var(--t1);line-height:1.6;position:relative;z-index:1;
+}
+
+/* ═══════════════════════════════
+   CIVIC WORK
+═══════════════════════════════ */
+.civic-sec{background:var(--bg2)}
+.civic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;max-width:1100px}
+.civic-card{
+  background:var(--glass);backdrop-filter:blur(14px);
+  border:1px solid var(--border);border-radius:20px;
+  padding:clamp(18px,2.5vw,28px);
+  transition:border-color .4s,transform .4s cubic-bezier(.25,.1,.25,1);
+}
+.civic-card:hover{border-color:rgba(56,217,245,.22);transform:translateY(-5px)}
+.civic-icon{font-size:28px;margin-bottom:10px;display:block}
+.civic-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(13px,1.6vw,17px);color:var(--t1);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.civic-desc{font-size:clamp(11px,1.2vw,13px);color:var(--t2);line-height:1.6}
+
+/* ═══════════════════════════════
+   SITE MOTTO
+═══════════════════════════════ */
+.site-motto{
+  margin-top:clamp(18px,2.8vh,30px);
+  margin-bottom:clamp(10px,1.5vh,18px);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.motto-skt{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.2vw,38px);
+  font-style:italic;font-weight:600;
+  color:#fef08a;
+  text-shadow:0 0 25px rgba(250,204,21,0.35), 0 2px 4px rgba(0,0,0,0.9);
+  letter-spacing:.05em;line-height:1.2;
+}
+.motto-tr{
+  font-family:'Space Mono',monospace;font-size:clamp(10px,1.1vw,13px);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(240,237,232,0.85);
+  text-shadow:0 1px 3px rgba(0,0,0,0.9);
+}
+
+/* ═══════════════════════════════
+   UPANISHADIC QUOTE DIVIDER
+═══════════════════════════════ */
+.skt-break{
+  padding:clamp(40px,7vh,80px) clamp(20px,8vw,120px);
+  text-align:center;background:var(--bg3);position:relative;overflow:hidden;
+}
+.skt-break::before{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.25),transparent);
+}
+.skt-break::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(157,113,248,0.2),transparent);
+}
+.skt-verse{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(20px,3vw,38px);color:var(--t1);line-height:1.4;
+  margin-bottom:clamp(10px,1.5vh,16px);
+}
+.skt-src{
+  font-family:'Space Mono',monospace;font-size:clamp(7px,.8vw,9px);
+  letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;
+}
+.skt-meaning{
+  margin-top:7px;
+  font-family:'Cormorant Garamond',serif;font-size:clamp(13px,1.4vw,17px);
+  color:var(--t2);font-style:italic;line-height:1.5;
+}
+
+/* ═══════════════════════════════
+   CLOSING QUOTE
+═══════════════════════════════ */
+.quote-sec{
+  background:var(--bg);
+  padding:clamp(80px,14vh,160px) clamp(20px,8vw,120px);
+  text-align:center;position:relative;overflow:hidden;
+}
+.quote-sec::before{
+  content:'\201C';position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+  font-family:'Cormorant Garamond',serif;font-size:clamp(200px,30vw,380px);
+  color:rgba(157,113,248,0.04);line-height:1;pointer-events:none;z-index:0;
+}
+.big-quote{
+  position:relative;z-index:1;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(22px,4vw,56px);font-weight:300;
+  color:var(--t1);line-height:1.45;max-width:860px;margin:0 auto;
+}
+.big-quote em{
+  background:linear-gradient(135deg,var(--violet),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-style:normal;
+}
+.quote-attr{
+  margin-top:clamp(18px,3vh,28px);
+  font-family:'Space Mono',monospace;font-size:clamp(8px,.9vw,10px);
+  letter-spacing:.22em;text-transform:uppercase;color:var(--t3);
+}
+
+/* ═══════════════════════════════
+   CONTACT
+═══════════════════════════════ */
+.contact-sec{background:var(--bg3);border-radius:40px 40px 0 0;margin-top:-18px;position:relative;z-index:3}
+.c-inner{max-width:780px;margin:0 auto;text-align:center}
+.c-h{
+  font-family:'Kanit',sans-serif;font-weight:900;text-transform:uppercase;
+  letter-spacing:-0.025em;line-height:0.88;
+  font-size:clamp(50px,10vw,130px);
+  background:linear-gradient(135deg,var(--violet),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:22px;
+}
+.c-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,1.8vw,21px);font-style:italic;color:var(--t2);margin-bottom:clamp(28px,5vh,52px)}
+.c-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.c-chip{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:100px;
+  border:1px solid var(--border);background:var(--glass);backdrop-filter:blur(12px);
+  font-family:'Space Mono',monospace;font-size:clamp(8px,.9vw,10px);letter-spacing:.08em;
+  color:var(--t2);text-decoration:none;
+  transition:background .3s,border-color .3s,color .3s,box-shadow .3s;
+}
+.c-chip:hover{background:var(--glass2);border-color:var(--border2);color:var(--t1);box-shadow:0 0 22px rgba(157,113,248,.15)}
+.c-chip-i{color:var(--violet)}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:clamp(28px,5vh,52px) clamp(20px,5vw,80px);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;
+  position:relative;z-index:2;
+}
+.foot-brand{
+  font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.foot-copy{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--t3);text-align:right}
+
+/* ─── SKILL BARS ─── */
+.sbar-wrap{margin-top:18px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.sbar{display:flex;flex-direction:column;gap:5px}
+.sbar-hd{display:flex;justify-content:space-between;font-size:11px;color:var(--t2)}
+.sbar-track{height:3px;background:var(--border);border-radius:99px;overflow:hidden}
+.sbar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--violet),var(--cyan));transform:scaleX(0);transform-origin:left}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+  .inst-bullets{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .pbody{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .sgrid{grid-template-columns:1fr}
+  .civic-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+  .foot-copy{text-align:center}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
-<!-- Scroll progress -->
 <div id="progress"></div>
+<canvas id="three-canvas"></canvas>
+<div id="cursor-glow"></div>
 
-<!-- Starfield canvas -->
-<canvas id="starfield"></canvas>
-
-<!-- Navigation -->
-<nav id="nav" aria-label="Main navigation">
-  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <span class="nav-logo-name">Dr. S. K. Padhi</span>
-    <span class="nav-logo-sub">Vedānta · BHU</span>
-  </div>
+<!-- NAV -->
+<nav id="nav">
+  <a class="brand" href="#top">
+    <div class="brand-mark">SD</div>
+    <span class="brand-txt">Shrikantha Devaru</span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#qualifications">Education</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#research">Research</a></li>
+    <li><a href="#statement">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#outputs">Outputs</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a class="nav-cta" href="mailto:shrikanth@[youremail]">Let's Talk →</a>
 </nav>
 
-<div class="universe">
+<div class="page" id="top">
 
-  <!-- ══════════ HERO ══════════ -->
-  <section class="hero" aria-label="Introduction">
-
-    <!-- Decorative orbit rings -->
-    <div class="ring r1" aria-hidden="true"></div>
-    <div class="ring r2" aria-hidden="true"></div>
-    <div class="ring r3" aria-hidden="true"></div>
-    <div class="hero-mandala" aria-hidden="true"></div>
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="orb o1" aria-hidden="true"></div>
+    <div class="orb o2" aria-hidden="true"></div>
+    <div class="orb o3" aria-hidden="true"></div>
 
     <div class="hero-content">
-      <div class="hero-eyebrow">Curriculum Vitae · Academic Portfolio</div>
+      <div class="badge" id="h-badge">
+        <div class="badge-dot"></div>
+        Advaita Vedānta Scholar · Philosophy of Mind · Ancient &amp; Modern Consciousness
+      </div>
 
-      <div class="hero-dr">Dr.</div>
-
-      <h1 class="hero-name">
-        Saroj Kumar<br>
-        <span class="hero-name-italic">Padhi</span>
+      <h1 class="hero-name" id="h-name">
+        <span class="n-first">Shrikantha</span>
+        <span class="n-divider"></span>
+        <span class="n-last">Devaru</span>
       </h1>
 
-      <p class="hero-tagline">
-        Professor of Vaidic Darshan<br>
-        Faculty of Sanskrit Vidya Dharmavijnan
+      <div class="site-motto" id="h-motto">
+        <span class="motto-skt">आनो भद्राः क्रतवो यन्तु विश्वतः</span>
+        <span class="motto-tr">Let noble thoughts come from every direction — Ṛgveda 1.89.1</span>
+      </div>
+
+      <p class="hero-desc" id="h-desc">
+        At the root, I am a Vedāntin. I study consciousness —
+        what the Upaniṣads called <em>Cit</em>, what Advaita
+        calls the only thing that cannot be doubted.
+        Modern philosophy of mind is still circling what
+        Śaṅkarācārya said clearly, over a thousand years ago.
+        My work is to bring those two conversations together.
       </p>
 
-      <p class="hero-inst">Banaras Hindu University &nbsp;·&nbsp; Varanasi — 221 005, India</p>
-
-      <!-- Stats -->
-      <div class="hero-stats" aria-label="Quick statistics">
-        <div class="stat">
-          <div class="stat-num" id="years-count">0+</div>
-          <div class="stat-label">Years Teaching</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">12+</div>
-          <div class="stat-label">Research Papers</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">04</div>
-          <div class="stat-label">Journals Edited</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">12</div>
-          <div class="stat-label">Conferences</div>
-        </div>
+      <div class="hero-stats" id="h-stats">
+        <div class="stat"><div class="stat-v">MA</div><div class="stat-k">Advaita Vedānta · BHU</div></div>
+        <div class="stat"><div class="stat-v">5</div><div class="stat-k">Years Gurukula</div></div>
+        <div class="stat"><div class="stat-v">NET</div><div class="stat-k">UGC-NET Qualified</div></div>
+        <div class="stat"><div class="stat-v">Cit</div><div class="stat-k">Consciousness · PhD Focus</div></div>
       </div>
 
-      <!-- Contact chips -->
-      <div class="hero-contact">
-        <div class="chip">
-          <span class="chip-icon">✉</span>
-          sarojbhu@gmail.com
-        </div>
-        <div class="chip">
-          <span class="chip-icon">✆</span>
-          +91 94515 26752
-        </div>
-        <div class="chip">
-          <span class="chip-icon">📍</span>
-          Varanasi, India
-        </div>
+      <div class="hero-ctas" id="h-ctas">
+        <a class="btn-p" href="#statement">Read Research Statement ↗</a>
+        <a class="btn-g" href="#projects">View Projects</a>
       </div>
-    </div>
 
-    <!-- Portrait placeholder (elegant frame) -->
-    <div class="hero-portrait-wrap" id="portrait" aria-hidden="true">
-      <div style="
-        width: clamp(200px,25vw,380px);
-        height: clamp(280px,36vw,540px);
-        border: 1px solid rgba(212,168,67,0.18);
-        border-radius: 8px;
-        background: rgba(12,12,26,0.6);
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        gap: 12px;
-        position: relative; overflow: hidden;
-      ">
-        <div style="
-          position: absolute; inset: 0;
-          background: radial-gradient(ellipse at 30% 20%, rgba(212,168,67,0.07), transparent 60%);
-        "></div>
-        <!-- Decorative mandala using the generated image -->
-        <img src="/Users/sjs.iss/.gemini/antigravity/brain/98b30b08-183c-4426-9665-7b5abd84acd2/vedic_mandala_bg_1780988018178.png"
-             alt="Vedic Mandala"
-             style="width:80%; opacity:0.4; position:absolute; inset:0; margin:auto; object-fit:cover; height:100%;"
-             onerror="this.style.display='none'">
-        <div style="
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(44px,6vw,80px);
-          font-style: italic;
-          color: rgba(212,168,67,0.6);
-          line-height: 1;
-          position: relative; z-index: 1;
-          background: linear-gradient(180deg, #d4a843, #f5edd8);
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-          background-clip: text;
-        ">ॐ</div>
-        <div style="
-          font-family: 'Space Mono', monospace;
-          font-size: 9px; letter-spacing: 0.3em;
-          color: rgba(212,168,67,0.35); text-transform: uppercase;
-          position: relative; z-index: 1;
-        ">Advaita Vedānta</div>
-        <div style="
-          font-family: 'Cormorant Garamond', serif;
-          font-style: italic; font-size: clamp(13px,1.5vw,17px);
-          color: rgba(232,217,192,0.5);
-          text-align: center; padding: 0 20px;
-          position: relative; z-index: 1;
-          line-height: 1.5;
-        ">सर्वं खल्विदं ब्रह्म<br><span style="font-size:0.7em;opacity:0.6;">All this indeed is Brahman</span></div>
+      <div class="pill-row" id="h-pills">
+        <div class="pill"><div class="pill-dot" style="background:var(--gold)"></div>Advaita Vedānta</div>
+        <div class="pill"><div class="pill-dot" style="background:var(--violet)"></div>Philosophy of Mind</div>
+        <div class="pill"><div class="pill-dot" style="background:var(--cyan)"></div>Consciousness Studies</div>
+        <div class="pill"><div class="pill-dot" style="background:var(--rose)"></div>Sphoṭa · Bhartṛhari</div>
+        <div class="pill"><div class="pill-dot" style="background:var(--green)"></div>Sanskrit Epistemology</div>
+        <div class="pill"><div class="pill-dot" style="background:var(--gold)"></div>Mīmāṃsā · Brahmasūtra</div>
       </div>
     </div>
 
     <div class="scroll-cue" aria-hidden="true">
-      <div class="scroll-line"></div>
-      <span class="scroll-txt">Explore Portfolio</span>
+      <div class="scroll-cue-line"></div>
+      <span class="scroll-cue-txt">Scroll</span>
     </div>
   </section>
 
-  <!-- ══════════ MARQUEE ══════════ -->
-  <section class="marquee-section" aria-label="Research themes">
-    <div id="marquee-row1" class="marquee-track"></div>
-    <div id="marquee-row2" class="marquee-track" style="margin-top:16px"></div>
-  </section>
+  <!-- ═══════ MARQUEE ═══════ -->
+  <div class="marquee-wrap" aria-label="Research themes">
+    <div id="mr1" class="mrow"></div>
+    <div id="mr2" class="mrow"></div>
+  </div>
 
-  <!-- ══════════ ABOUT ══════════ -->
-  <section class="about-section" id="about" aria-labelledby="about-h">
-
-    <!-- Corner decorations -->
-    <div class="about-deco deco-tl reveal left" data-d="1">
-      <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
-           alt="" onerror="this.closest('.about-deco').innerHTML='<div style=\'font-size:60px;opacity:0.2\'>🌙</div>'">
-    </div>
-    <div class="about-deco deco-bl reveal left" data-d="3">
-      <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png"
-           alt="" onerror="this.closest('.about-deco').innerHTML='<div style=\'font-size:52px;opacity:0.15\'>💠</div>'">
-    </div>
-    <div class="about-deco deco-tr reveal right" data-d="2">
-      <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png"
-           alt="" onerror="this.closest('.about-deco').innerHTML='<div style=\'font-size:60px;opacity:0.2\'>🏺</div>'">
-    </div>
-    <div class="about-deco deco-br reveal right" data-d="4">
-      <img src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png"
-           alt="" onerror="this.closest('.about-deco').innerHTML='<div style=\'font-size:68px;opacity:0.15\'>📜</div>'">
-    </div>
-
-    <div class="about-inner">
-      <h2 class="about-heading reveal" id="about-h">About Me</h2>
-
-      <p class="about-text" id="about-text">
-        With more than twenty years of experience in Sanskrit scholarship and Vedic philosophy,
-        I focus on Advaita Vedānta, Indian epistemology, and contemporary philosophical thought.
-        I truly enjoy guiding students who aspire to explore the depths of our ancient wisdom traditions.
-        Let us illuminate the path of knowledge together.
+  <!-- ═══════ RESEARCH STATEMENT ═══════ -->
+  <section class="section rs-sec" id="statement">
+    <div class="stag">Research Identity</div>
+    <h2 class="sec-h">Vedānta<br>&amp; Mind</h2>
+    <div class="rs-card">
+      <p class="rs-opener">
+        Advaita Vedānta is not a religious system. It is the most rigorous <em>philosophy of consciousness</em> ever written. The question it asks — what is the nature of the witness, the knower, pure awareness — is the same question that David Chalmers calls the hard problem of consciousness. One tradition is 3,000 years old. The other is thirty.
       </p>
+      <p class="rs-body">
+        I am a Sanskrit scholar and Vedāntin first. Computation came later, as a method — a way to make these philosophical systems formally accessible, analyzable, and legible to modern researchers who do not read Sanskrit. The Brahmasūtrabhāṣya, the Upaniṣads, Bhartṛhari’s Sphoṭa theory, the Vachana corpus — these are not data sources to me. They are philosophical arguments I have lived with.
+      </p>
+      <p class="rs-body" style="margin-top:16px">
+        What interests me most is the intersection: where Ādi Śaṅkarā’s account of Adhyāsa (superimposition) meets contemporary theories of perception and misrepresentation. Where the Antaḥkaraṇa model of mind — manas, buddhi, ahaṃkāra, citta — maps onto (and sometimes corrects) modern cognitive architecture. Where Śabda as pramāṇa gives language a epistemic weight that Western philosophy of language is only beginning to consider.
+      </p>
+      <div class="rs-punchline">प्रज्ञानं ब्रह्म — Consciousness itself is the ground of all inquiry.</div>
+    </div>
+  </section>
 
-      <div class="reveal" data-d="3">
-        <button class="btn-contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          ✉ &nbsp; Connect With Me
-        </button>
+  <!-- ═══════ RESEARCH FOCUS — 3 PILLARS ═══════ -->
+
+  <!-- UPANISHADIC QUOTE BREAK -->
+  <div class="skt-break">
+    <div class="skt-verse">उत्तिष्ठत जाग्रत प्राप्य वरान्निबोधत</div>
+    <div class="skt-src">Kaṭha Upaniṣad 1.3.14</div>
+    <div class="skt-meaning">Arise, awake — and do not stop until the goal is reached.</div>
+  </div>
+
+  <section class="section about-sec" id="focus">
+    <div class="stag">Philosophical Foundations</div>
+    <h2 class="sec-h">Ancient<br>Roots</h2>
+    <div class="about-grid">
+      <div class="a-card">
+        <span class="a-icon">🕯️</span>
+        <div class="a-lbl">Foundation</div>
+        <div class="a-h">Advaita Vedānta &amp; Consciousness</div>
+        <div class="a-txt">My core formation is in Advaita Vedānta — through five years of Gurukula study and an MA at Banaras Hindu University. The Brahmasūtra, the Upaniṣads, Ādi Śaṅkarā’s commentaries — I read these as philosophy, not scripture. Adhyāsa, Māyā, Cit, Turiya — these are not metaphors. They are a precise phenomenology of consciousness that modern cognitive science has not yet matched.</div>
+        <div class="a-moat">अहं ब्रह्मास्मि — Bṛhadāraṇyaka Upaniṣad · Mahāvākya</div>
+      </div>
+      <div class="a-card">
+        <span class="a-icon">🗣️</span>
+        <div class="a-lbl">Language &amp; Mind</div>
+        <div class="a-h">Sphoṭa Theory &amp; Philosophy of Language</div>
+        <div class="a-txt">Bhartṛhari’s Sphoṭa theory holds that language and consciousness are not separate — that the meaning of a sentence is grasped as a whole, in an instant of cognition called Pratibhā. Mīmāṃsā treats Śabda (sound/word) as an independent means of valid knowledge. These are radical philosophical positions. They also happen to be directly relevant to how large language models fail to understand meaning.</div>
+        <div class="a-moat">वाक्यं रसवदास्वाद्यं — Speech is the taste of all things. Bhartṛhari</div>
+      </div>
+      <div class="a-card">
+        <span class="a-icon">🧠</span>
+        <div class="a-lbl">Modern Bridge</div>
+        <div class="a-h">Computation as Philosophical Method</div>
+        <div class="a-txt">The tools I build — RAG systems over the Brahmasūtrabhāṣya, semantic search for Sanskrit ślokas, LLM pipelines for Vachana poetry — are not ends in themselves. They are how I make these philosophical systems legible to researchers who do not read Sanskrit. The goal is always philosophical clarity. The method is sometimes computational.</div>
+        <div class="a-moat">चरैवेति चरैवेति — Keep moving. The path and the goal are not separate.</div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ SERVICES (Teaching Areas) ══════════ -->
-  <section class="services-section" id="services" aria-labelledby="serv-h">
-    <div class="section-eyebrow" style="color:#0C0C0C;opacity:0.4;justify-content:center">Areas of Expertise</div>
-    <h2 class="section-heading" id="serv-h">Teaching &amp;<br>Research Areas</h2>
+  <!-- UPANISHADIC QUOTE BREAK -->
+  <div class="skt-break">
+    <div class="skt-verse">तत्त्वमसि</div>
+    <div class="skt-src">Chāndogya Upaniṣad 6.8.7 · Mahāvākya</div>
+    <div class="skt-meaning">Thou art that — the individual self and the ground of all consciousness are not two.</div>
+  </div>
 
-    <div class="services-list">
-      <div class="service-item reveal" data-d="1">
-        <div class="service-num">01</div>
-        <div class="service-body">
-          <div class="service-name">Advaita Vedānta</div>
-          <div class="service-desc">Systematic study of non-dualistic philosophy of Śaṅkarācārya — Brahman, Māyā, Ātman, and the path to liberation through knowledge.</div>
-        </div>
-      </div>
-      <div class="service-item reveal" data-d="2">
-        <div class="service-num">02</div>
-        <div class="service-body">
-          <div class="service-name">Indian Epistemology</div>
-          <div class="service-desc">Pramāṇaśāstra — the theory of valid knowledge sources including perception, inference, and verbal testimony across the six Āstika darśanas.</div>
-        </div>
-      </div>
-      <div class="service-item reveal" data-d="3">
-        <div class="service-num">03</div>
-        <div class="service-body">
-          <div class="service-name">Upaniṣadic Philosophy</div>
-          <div class="service-desc">Deep textual analysis of the principal Upaniṣads — their cosmogony, ontology, and soteriological vision in the context of Vedic revelation.</div>
-        </div>
-      </div>
-      <div class="service-item reveal" data-d="4">
-        <div class="service-num">04</div>
-        <div class="service-body">
-          <div class="service-name">Sanskrit Grammar &amp; Hermeneutics</div>
-          <div class="service-desc">Pāṇinian grammar, Vākyapadīya of Bharṭrhari, and Mīmāṃsā interpretive methods applied to canonical Sanskrit texts.</div>
-        </div>
-      </div>
-      <div class="service-item reveal" data-d="5">
-        <div class="service-num">05</div>
-        <div class="service-body">
-          <div class="service-name">Contemporary Indian Philosophy</div>
-          <div class="service-desc">Dialogue between classical Vedāntic thought and modern philosophy — ethics, consciousness studies, and the relevance of ancient wisdom today.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ═══════ PROJECTS ═══════ -->
+  <section class="section proj-sec" id="projects">
+    <div class="stag">Philosophical Research in Practice</div>
+    <h2 class="sec-h">Built<br>Work</h2>
+    <div class="pstack">
 
-  <!-- ══════════ QUALIFICATIONS ══════════ -->
-  <section class="qual-section section" id="qualifications" aria-labelledby="qual-h">
-    <div class="section-eyebrow">Academic Formation</div>
-    <h2 class="section-heading" id="qual-h">Qualifications</h2>
-
-    <div class="qual-grid">
-      <div class="qual-card reveal" data-d="1">
-        <div class="qual-idx">01</div>
-        <div>
-          <div class="qual-degree">Śāstrī — Advaita Vedānta</div>
-          <div class="qual-inst">Rāṣṭrīya Sanskrit Vidyāpīṭha, Tirupati, Andhra Pradesh</div>
-          <div class="qual-tags"><span class="tag tag-gold">Gold Medalist</span></div>
-        </div>
-        <div class="qual-year">2000</div>
-      </div>
-
-      <div class="qual-card reveal" data-d="2">
-        <div class="qual-idx">02</div>
-        <div>
-          <div class="qual-degree">Śikṣyā Śāstrī (B.Ed. equivalent)</div>
-          <div class="qual-inst">Rāṣṭrīya Sanskrit Saṃsthān, New Delhi</div>
-        </div>
-        <div class="qual-year">2001</div>
-      </div>
-
-      <div class="qual-card reveal" data-d="3">
-        <div class="qual-idx">03</div>
-        <div>
-          <div class="qual-degree">Ācārya — Advaita Vedānta</div>
-          <div class="qual-inst">Rāṣṭrīya Sanskrit Vidyāpīṭha, Tirupati, Andhra Pradesh</div>
-          <div class="qual-tags">
-            <span class="tag tag-gold">Gold Medalist</span>
-            <span class="tag tag-gold">1st Division</span>
-          </div>
-        </div>
-        <div class="qual-year">2003</div>
-      </div>
-
-      <div class="qual-card reveal" data-d="4">
-        <div class="qual-idx">04</div>
-        <div>
-          <div class="qual-degree">Doctor of Philosophy (Ph.D.)</div>
-          <div class="qual-inst">Rāṣṭrīya Sanskrit Vidyāpīṭha, Tirupati, Andhra Pradesh</div>
-          <div class="qual-tags">
-            <span class="tag tag-blue">UGC–NET</span>
-            <span class="tag tag-vi">JRF Qualified</span>
-          </div>
-        </div>
-        <div class="qual-year">2008</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ EXPERIENCE ══════════ -->
-  <section class="exp-section" id="experience" aria-labelledby="exp-h">
-    <div class="section-eyebrow">Professional Journey</div>
-    <h2 class="section-heading" id="exp-h">Experience</h2>
-
-    <div class="timeline">
-      <div class="tl-item tl-current reveal" data-d="1">
-        <div class="tl-header">
-          <div class="tl-role">Professor</div>
-          <div class="tl-period">Nov 2018 — Present</div>
-        </div>
-        <div class="tl-dept">Department of Vaidic Darshan · Faculty of SVDV · Banaras Hindu University, Varanasi</div>
-      </div>
-
-      <div class="tl-item reveal" data-d="2">
-        <div class="tl-header">
-          <div class="tl-role">Assistant Professor</div>
-          <div class="tl-period">Nov 2006 — Nov 2018</div>
-        </div>
-        <div class="tl-dept">Department of Vaidic Darshan · Faculty of SVDV · Banaras Hindu University, Varanasi</div>
-      </div>
-
-      <div class="tl-item reveal" data-d="3">
-        <div class="tl-header">
-          <div class="tl-role">Assistant Teacher</div>
-          <div class="tl-period">Sep 2003 — Nov 2006</div>
-        </div>
-        <div class="tl-dept">Kendriya Vidyālaya Saṃgaṭhan, Government of India</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ BOOKS ══════════ -->
-  <section class="qual-section" id="books" aria-labelledby="books-h">
-    <div class="section-eyebrow">Authored Works</div>
-    <h2 class="section-heading" id="books-h">Books</h2>
-
-    <div class="books-grid">
-      <div class="book-card reveal" data-d="1">
-        <div class="book-badge">◈ &nbsp; Edited Volume · 2017</div>
-        <div class="book-title">Sarvadarshanasūtraprakaraṇasaṃgraha</div>
-        <div class="book-pub">Bhāratīya Vidyā Prakāśan, Vārāṇasī</div>
-        <div class="book-isbn">Edited scholarly compilation · Sanskrit Philosophy</div>
-      </div>
-
-      <div class="book-card reveal" data-d="2">
-        <div class="book-badge">◈ &nbsp; Authored Monograph · 2018</div>
-        <div class="book-title">Pūrṇādvitādarśanavimarśaḥ</div>
-        <div class="book-pub">Disha International Publishing House, Greater Noida</div>
-        <div class="book-isbn">ISBN 978-93-84782-40-05</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ JOURNALS ══════════ -->
-  <section class="exp-section" id="journals" aria-labelledby="jour-h">
-    <div class="section-eyebrow">Editorial Stewardship</div>
-    <h2 class="section-heading" id="jour-h">Journals Edited</h2>
-
-    <div class="journals-grid">
-      <div class="journal-card reveal" data-d="1">
-        <div class="journal-icon">📜</div>
-        <div class="journal-name">Saṃskṛtavidyā</div>
-        <div class="journal-role-badge">Editor</div>
-        <div class="journal-period">Research Journal, SVDV · BHU · 2013 – 2016</div>
-      </div>
-      <div class="journal-card reveal" data-d="2">
-        <div class="journal-icon">📜</div>
-        <div class="journal-name">Vyāsaśrī</div>
-        <div class="journal-role-badge">Editor</div>
-        <div class="journal-period">National Research Journal, Vedavyās Research Institute, Raurkela · 2010 – 2019</div>
-      </div>
-      <div class="journal-card reveal" data-d="3">
-        <div class="journal-icon">📜</div>
-        <div class="journal-name">Pratipitṣā</div>
-        <div class="journal-role-badge">Editor</div>
-        <div class="journal-period">International Research Journal, Vaidic Darshan, BHU · 2013 – 2015</div>
-      </div>
-      <div class="journal-card reveal" data-d="4">
-        <div class="journal-icon">📜</div>
-        <div class="journal-name">Āmnāyikī</div>
-        <div class="journal-role-badge">Editor</div>
-        <div class="journal-period">International Research Journal, Veda Dept., BHU · 2017 – 2018</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ RESEARCH PAPERS ══════════ -->
-  <section class="qual-section" id="research" aria-labelledby="res-h">
-    <div class="section-eyebrow">Published Research</div>
-    <h2 class="section-heading" id="res-h">Research Papers</h2>
-
-    <div class="pubs-grid">
-      <div class="pub-card reveal" data-d="1">
-        <div class="pub-num">01</div>
-        <div>
-          <div class="pub-title">Jīvanāmṛtam — Vedāntic perspectives</div>
-          <div class="pub-meta">Rāṣṭrīya Saṃskṛta Vidyāpīṭha Granthamālā · 2007</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="2">
-        <div class="pub-num">02</div>
-        <div>
-          <div class="pub-title">Advaita Brahma-vimarśa in Śrīmad Bhāgavata Mahāpurāṇa</div>
-          <div class="pub-meta">Saṃskṛtavidyā <span class="pub-issn">ISSN 0975-8348</span> · 2008</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="3">
-        <div class="pub-num">03</div>
-        <div>
-          <div class="pub-title">Śāntivārtā in the Upaniṣads</div>
-          <div class="pub-meta">Saṃskṛtavidyā <span class="pub-issn">ISSN 0975-8348</span> · 2009</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="4">
-        <div class="pub-num">04</div>
-        <div>
-          <div class="pub-title">Jīvātmasvarūpa in Advaita Vedānta</div>
-          <div class="pub-meta">Saṃskṛtavidyā <span class="pub-issn">ISSN 0975-8348</span> · 2012</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="5">
-        <div class="pub-num">05</div>
-        <div>
-          <div class="pub-title">Cosmogony According to the Upaniṣads</div>
-          <div class="pub-meta">Saṃskṛtavidyā <span class="pub-issn">ISSN 0975-8348</span> · 2013</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="6">
-        <div class="pub-num">06</div>
-        <div>
-          <div class="pub-title">Ethics in Advaita Vedānta</div>
-          <div class="pub-meta">Darśanaprabha <span class="pub-issn">ISSN 2348-5981</span> · 2016</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="7">
-        <div class="pub-num">07</div>
-        <div>
-          <div class="pub-title">Concepts of Computers in Śrī Viṣṇu Sahasranāmastotra</div>
-          <div class="pub-meta">Darśanaprabha <span class="pub-issn">ISSN 2348-5981</span> · 2015</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="8">
-        <div class="pub-num">08</div>
-        <div>
-          <div class="pub-title">Bandha-mokṣayoḥ svarūpavimarśa in Advaita Vedānta</div>
-          <div class="pub-meta">Saṃskṛtavidyā <span class="pub-issn">ISSN 0975-8348</span> · 2015</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="9">
-        <div class="pub-num">09</div>
-        <div>
-          <div class="pub-title">Śaṅkara's Interpretation of Śruti Pratijñā</div>
-          <div class="pub-meta">Intl. Journal of Sanskrit Research <span class="pub-issn">ISSN 2394-7519</span> · 2017</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="10">
-        <div class="pub-num">10</div>
-        <div>
-          <div class="pub-title">Theory of Ultimate Reality in Non-dualism</div>
-          <div class="pub-meta">Cintana <span class="pub-issn">ISSN 2229-7227</span> · 2018</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="11">
-        <div class="pub-num">11</div>
-        <div>
-          <div class="pub-title">Vākyapadīya — Analysis of Sambandhasvarūpa</div>
-          <div class="pub-meta">Darśanapravā <span class="pub-issn">ISSN 2348-5981</span> · 2014</div>
-        </div>
-      </div>
-      <div class="pub-card reveal" data-d="12">
-        <div class="pub-num">12</div>
-        <div>
-          <div class="pub-title">Vivartapariṇāmau in Grammar-philosophy</div>
-          <div class="pub-meta">Saṃskṛtavidyā <span class="pub-issn">ISSN 0975-8348</span> · 2017</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ RESEARCH THEMES (Sticky Card Stack) ══════════ -->
-  <section class="projects-section" aria-labelledby="proj-h">
-    <div class="section-eyebrow" style="color:rgba(212,168,67,0.75)">Selected Contributions</div>
-    <h2 class="section-heading" id="proj-h">Research<br>Themes</h2>
-
-    <div class="cards-stack" id="cards-stack">
-
-      <!-- Card 1 -->
-      <div class="card-wrapper">
-        <div class="card-sticky" id="card-0">
-          <div class="proj-card">
-            <div class="proj-card-top">
-              <div class="proj-num">01</div>
-              <div class="proj-meta">
-                <div class="proj-category">Metaphysics · Ontology</div>
-                <div class="proj-title">Non-dual Consciousness</div>
-              </div>
-              <button class="btn-live">Explore ↗</button>
+      <div class="pw">
+        <div class="proj-card" id="pc0" style="top:100px">
+          <div class="proj-top">
+            <div class="proj-num">01</div>
+            <div class="proj-inf">
+              <div class="proj-cat">Sanskrit NLP · Semantic Mapping · LLM Integration</div>
+              <div class="proj-title">Vachana Vijñāna — Computational Wellness Application</div>
+              <div class="ptags"><span class="ptag tvi">Vachana Corpus</span><span class="ptag tcy">Anthropic Claude</span><span class="ptag tgo">Kannada / English</span><span class="ptag tro">Ontology Alignment</span></div>
             </div>
-            <div class="proj-imgs">
-              <div class="proj-img-col">
-                <div class="proj-img proj-img-sm">
-                  <div class="proj-img-glyph">ब्रह्म</div>
-                  <div class="proj-img-label">Brahman · Ultimate Reality</div>
-                </div>
-                <div class="proj-img proj-img-md">
-                  <div class="proj-img-glyph">आत्मन्</div>
-                  <div class="proj-img-label">Ātman · Individual Self</div>
-                </div>
-              </div>
-              <div class="proj-img-col">
-                <div class="proj-img proj-img-tall">
-                  <div class="proj-img-glyph" style="font-size:clamp(18px,2.5vw,32px);line-height:1.5;text-align:center;padding:0 20px">
-                    Advaita Vedānta posits that Brahman — pure, infinite consciousness — is the sole reality. The apparent multiplicity of the world arises through Māyā, the cosmic illusion.
-                  </div>
-                  <div class="proj-img-label">Śaṅkarācārya's Non-Dualism</div>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="pbody">
+            <div class="ppanel"><div class="ppanel-icon">🧘</div><div class="ppanel-t">Vedāntic Wellbeing</div><div class="ppanel-d">The śaraṇas understood suffering and liberation with precision. This application maps their vocabulary — linga, sthala, bhakti, siddhi — onto contemporary psychological categories. Vedāntic soteriology meets modern affective science.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🧩</div><div class="ppanel-t">Ontological Alignment</div><div class="ppanel-d">Mapping 12th-century philosophical vocabulary to contemporary affective states required formal alignment between two epistemic frameworks separated by 900 years and two languages.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">✨</div><div class="ppanel-t">First of Its Kind</div><div class="ppanel-d">No prior computational work on Vachana philosophy as a framework for mental wellbeing exists. The Vīraśaiva tradition has rich psychological depth — it simply has not been made computationally accessible.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🔬</div><div class="ppanel-t">Domain Depth Required</div><div class="ppanel-d">The śaraṇas wrote in 12th-century Halagannada with dense philosophical layering. This is not a text you can process without understanding Vīraśaiva ontology from the inside.</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="card-wrapper">
-        <div class="card-sticky" id="card-1">
-          <div class="proj-card">
-            <div class="proj-card-top">
-              <div class="proj-num">02</div>
-              <div class="proj-meta">
-                <div class="proj-category">Epistemology · Hermeneutics</div>
-                <div class="proj-title">Vedic Interpretation</div>
-              </div>
-              <button class="btn-live">Explore ↗</button>
+      <div class="pw">
+        <div class="proj-card" id="pc1" style="top:128px">
+          <div class="proj-top">
+            <div class="proj-num">02</div>
+            <div class="proj-inf">
+              <div class="proj-cat">Retrieval-Augmented Generation · Classical Text Processing</div>
+              <div class="proj-title">RAG System for Brahmasūtra Śāṅkarabhāṣya</div>
+              <div class="ptags"><span class="ptag tvi">RAG</span><span class="ptag tcy">Sanskrit</span><span class="ptag tgo">Śaṅkarācārya</span><span class="ptag tgr">Scholarly Querying</span></div>
             </div>
-            <div class="proj-imgs">
-              <div class="proj-img-col">
-                <div class="proj-img proj-img-sm">
-                  <div class="proj-img-glyph">वाक्य</div>
-                  <div class="proj-img-label">Vākyapadīya · Philosophy of Language</div>
-                </div>
-                <div class="proj-img proj-img-md">
-                  <div class="proj-img-glyph">श्रुति</div>
-                  <div class="proj-img-label">Śruti · Vedic Revelation</div>
-                </div>
-              </div>
-              <div class="proj-img-col">
-                <div class="proj-img proj-img-tall">
-                  <div class="proj-img-glyph" style="font-size:clamp(18px,2.5vw,32px);line-height:1.5;text-align:center;padding:0 20px">
-                    Bharṭrhari's Vākyapadīya and Mīmāṃsā hermeneutics illuminate how Vedic statements are to be correctly interpreted for liberating knowledge.
-                  </div>
-                  <div class="proj-img-label">Grammar–Philosophy Interface</div>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="pbody">
+            <div class="ppanel"><div class="ppanel-icon">📖</div><div class="ppanel-t">Most Complex Text</div><div class="ppanel-d">Śaṅkarācārya's Brahmasūtrabhāṣya — one of the most structurally complex Sanskrit texts, with nested citation, refutation, and siddhānta layers.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🔍</div><div class="ppanel-t">Beyond Keyword Search</div><div class="ppanel-d">RAG pipeline enables semantic scholarly querying — finding conceptual connections across the text that keyword search cannot surface.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">⚙️</div><div class="ppanel-t">Technical Challenge</div><div class="ppanel-d">Handling Sanskrit sandhi in retrieval, preserving nested commentary structure, and semantic chunking that respects philosophical argument units.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🏛️</div><div class="ppanel-t">Scholarly Impact</div><div class="ppanel-d">Designed for academic use — enabling researchers to query the foundational text of Advaita Vedānta with precision and citation traceability.</div></div>
           </div>
         </div>
       </div>
 
-      <!-- Card 3 -->
-      <div class="card-wrapper">
-        <div class="card-sticky" id="card-2">
-          <div class="proj-card">
-            <div class="proj-card-top">
-              <div class="proj-num">03</div>
-              <div class="proj-meta">
-                <div class="proj-category">Ethics · Soteriology</div>
-                <div class="proj-title">Path to Liberation</div>
-              </div>
-              <button class="btn-live">Explore ↗</button>
+      <div class="pw">
+        <div class="proj-card" id="pc2" style="top:156px">
+          <div class="proj-top">
+            <div class="proj-num">03</div>
+            <div class="proj-inf">
+              <div class="proj-cat">Corpus NLP · Embedding Models · Sanskrit</div>
+              <div class="proj-title">Sloka Kosha — Sanskrit Semantic Search</div>
+              <div class="ptags"><span class="ptag tgo">Sanskrit</span><span class="ptag tcy">Embeddings</span><span class="ptag tvi">Sandhi Resolution</span><span class="ptag tro">Semantic Search</span></div>
             </div>
-            <div class="proj-imgs">
-              <div class="proj-img-col">
-                <div class="proj-img proj-img-sm">
-                  <div class="proj-img-glyph">मोक्ष</div>
-                  <div class="proj-img-label">Mokṣa · Liberation</div>
-                </div>
-                <div class="proj-img proj-img-md">
-                  <div class="proj-img-glyph">धर्म</div>
-                  <div class="proj-img-label">Dharma · Righteous Order</div>
-                </div>
-              </div>
-              <div class="proj-img-col">
-                <div class="proj-img proj-img-tall">
-                  <div class="proj-img-glyph" style="font-size:clamp(18px,2.5vw,32px);line-height:1.5;text-align:center;padding:0 20px">
-                    The Upaniṣadic vision of jīvanmukti — liberation while living — through jñāna, karma, and bhakti, and its relevance to contemporary ethical life.
-                  </div>
-                  <div class="proj-img-label">Vedāntic Ethics &amp; Value Philosophy</div>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="pbody">
+            <div class="ppanel"><div class="ppanel-icon">🔎</div><div class="ppanel-t">Semantic Search Engine</div><div class="ppanel-d">Search Sanskrit ślokas by meaning, not keywords — using embedding models tuned for morphologically rich classical language.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">✂️</div><div class="ppanel-t">Sandhi Resolution</div><div class="ppanel-d">Addresses core challenges: sandhi decomposition before embedding, compound word analysis, and meaning-preserving chunking for ślokas.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">📐</div><div class="ppanel-t">Embedding Challenge</div><div class="ppanel-d">Standard embedding models fail on Sanskrit — morphological richness means word-form variation is extreme. Custom preprocessing pipeline built from scratch.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">📚</div><div class="ppanel-t">Corpus Scale</div><div class="ppanel-d">Indexed across major Sanskrit corpora — Gītā, Upaniṣads, Rāmāyaṇa — enabling cross-text semantic discovery for scholars.</div></div>
           </div>
         </div>
       </div>
 
-    </div><!-- /cards-stack -->
-  </section>
+      <div class="pw">
+        <div class="proj-card" id="pc3" style="top:184px">
+          <div class="proj-top">
+            <div class="proj-num">04</div>
+            <div class="proj-inf">
+              <div class="proj-cat">Dialogue Systems · Devanagari Rendering · Sanskrit NLP</div>
+              <div class="proj-title">Sanskrit Shloka Chatbot</div>
+              <div class="ptags"><span class="ptag tcy">Sanskrit</span><span class="ptag tvi">Devanagari</span><span class="ptag tgo">Dialogue Systems</span><span class="ptag tgr">Script Normalization</span></div>
+            </div>
+          </div>
+          <div class="pbody">
+            <div class="ppanel"><div class="ppanel-icon">💬</div><div class="ppanel-t">Interactive Sanskrit</div><div class="ppanel-d">Conversational interface for Sanskrit verse — users query in English or transliteration, responses include accurate Devanagari rendering.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🖋️</div><div class="ppanel-t">Script Precision</div><div class="ppanel-d">Addresses diacritic normalization failures that plague standard NLP pipelines — anusvāra, visarga, and avagraha rendered correctly throughout.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🔊</div><div class="ppanel-t">Prosodic Awareness</div><div class="ppanel-d">Meter recognition built in — chatbot identifies anuṣṭubh, śārdūlavikrīḍita, and other chandas patterns before responding.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🌐</div><div class="ppanel-t">Multilingual Bridge</div><div class="ppanel-d">Sanskrit ↔ English ↔ IAST ↔ Devanagari — seamless script and language switching in a single conversation thread.</div></div>
+          </div>
+        </div>
+      </div>
 
-  <!-- ══════════ CONFERENCES ══════════ -->
-  <section class="exp-section" id="conferences" aria-labelledby="conf-h">
-    <div class="section-eyebrow">Scholarly Engagements</div>
-    <h2 class="section-heading" id="conf-h">Conferences &amp; Seminars</h2>
+      <div class="pw">
+        <div class="proj-card" id="pc4" style="top:212px">
+          <div class="proj-top">
+            <div class="proj-num">05</div>
+            <div class="proj-inf">
+              <div class="proj-cat">Research Infrastructure · Workflow Automation</div>
+              <div class="proj-title">Research Infrastructure Tools</div>
+              <div class="ptags"><span class="ptag tvi">Claude API</span><span class="ptag tcy">Python</span><span class="ptag tgo">Research Automation</span><span class="ptag tgr">Active Use</span></div>
+            </div>
+          </div>
+          <div class="pbody">
+            <div class="ppanel"><div class="ppanel-icon">🔭</div><div class="ppanel-t">Research Gap Finder</div><div class="ppanel-d">Claude-based tool that systematically maps gaps in the Sanskrit NLP and IKS computational literature — identifying where original contribution is possible.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">⚡</div><div class="ppanel-t">General Research Workflow</div><div class="ppanel-d">Modular automation skill for literature survey, draft generation, citation management, and cross-reference verification — in active daily use.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🤝</div><div class="ppanel-t">Collaborative Use</div><div class="ppanel-d">Tools now used for both personal research and collaborative academic work — validated by real scholarly tasks, not just demos.</div></div>
+            <div class="ppanel"><div class="ppanel-icon">🔧</div><div class="ppanel-t">Technical Stack</div><div class="ppanel-d">Anthropic Claude API · Python · modular skill architecture · REST API integration — designed for extension and adaptation.</div></div>
+          </div>
+        </div>
+      </div>
 
-    <div class="conf-grid">
-      <div class="conf-card reveal" data-d="1"><div class="conf-num">01</div><div><div class="conf-title">Position of Indology in World Wide</div><div class="conf-host">All India Sanskrit Conference · Lokabhāṣā Pracār Samiti, Odisha · 2007</div></div><div class="badge badge-natl">National</div></div>
-      <div class="conf-card reveal" data-d="2"><div class="conf-num">02</div><div><div class="conf-title">Cosmogony according to the Upaniṣads</div><div class="conf-host">2nd World Congress on Vedic Sciences · BHU & Vijñāna Bhāratī · 2007</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="3"><div class="conf-num">03</div><div><div class="conf-title">Concepts of Computer in Śrī Viṣṇu Sahasranāmastotra</div><div class="conf-host">International Sanskrit Conference · Kālidās Sanskrit University, Nagpur · 2007</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="4"><div class="conf-num">04</div><div><div class="conf-title">Value-based Education in Taittirīyopaniṣad</div><div class="conf-host">World Veda Conference · Gurukul Kangari University, Haridwar · 2009</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="5"><div class="conf-num">05</div><div><div class="conf-title">Kevalādvaita of Śaṅkara</div><div class="conf-host">International Celebration of Vedānta · International Vedānta Society · 2014</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="6"><div class="conf-num">06</div><div><div class="conf-title">Vedānta in Buddhist Thought</div><div class="conf-host">International Conference on Buddha · Dharmasaṃskṛta Saṃgam Kāśī · 2014</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="7"><div class="conf-num">07</div><div><div class="conf-title">A Critical Study of Kāśmīrīya Śaivism</div><div class="conf-host">World Conference on Nigamāgama Scriptures · Dept. Dharmagama, BHU · 2011</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="8"><div class="conf-num">08</div><div><div class="conf-title">Mahāmanās Vision on Higher Education</div><div class="conf-host">International BHU Alumni Meet & Seminar · Banaras Hindu University · 2012</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="9"><div class="conf-num">09</div><div><div class="conf-title">Relevance of Sanskrit in New Arena</div><div class="conf-host">Rāṣṭrīya Sanskrit Saṃsthān, Sadāśiva Campus, Puri</div></div><div class="badge badge-natl">National</div></div>
-      <div class="conf-card reveal" data-d="10"><div class="conf-num">10</div><div><div class="conf-title">Humanism in Vedic Philosophy</div><div class="conf-host">Raiganj University, Raiganj</div></div><div class="badge badge-intl">Intl</div></div>
-      <div class="conf-card reveal" data-d="11"><div class="conf-num">11</div><div><div class="conf-title">Ontology in Advaita Vedānta</div><div class="conf-host">Bhāratīya Darśaneṣu Tattva Mīmāṃsā · Rāṣṭrīya Sanskrit Saṃsthān, Puri · 2016</div></div><div class="badge badge-natl">National</div></div>
-      <div class="conf-card reveal" data-d="12"><div class="conf-num">12</div><div><div class="conf-title">Epistemology in Advaita Vedānta</div><div class="conf-host">Jātīya Ālocanā Cakra · Rāṣṭrīya Sanskrit Saṃsthān, Puri · 2011</div></div><div class="badge badge-natl">National</div></div>
     </div>
   </section>
 
-  <!-- ══════════ ACADEMIC BODIES ══════════ -->
-  <section class="qual-section" id="contact" aria-labelledby="mem-h">
-    <div class="section-eyebrow">Institutional Service</div>
-    <h2 class="section-heading" id="mem-h">Academic Bodies &amp; Roles</h2>
-
-    <div class="member-grid">
-      <div class="member-card reveal" data-d="1"><div class="member-orb"></div>Life Member — All India Oriental Conferences</div>
-      <div class="member-card reveal" data-d="2"><div class="member-orb"></div>Member — Indian Council of Philosophical Research (ICPR), New Delhi</div>
-      <div class="member-card reveal" data-d="3"><div class="member-orb"></div>Member — Academic Council, Banaras Hindu University, Varanasi</div>
-      <div class="member-card reveal" data-d="4"><div class="member-orb"></div>Member — Research Promotion Committee, Dept. Vaidic Darshan, BHU</div>
-      <div class="member-card reveal" data-d="5"><div class="member-orb"></div>Coordinator — Examination Committee, Faculty SVDV, BHU (2006 – present)</div>
-      <div class="member-card reveal" data-d="6"><div class="member-orb"></div>Member BOS — North Odisha University, Baripada (2016 – 2018)</div>
-      <div class="member-card reveal" data-d="7"><div class="member-orb"></div>Member BOS — Dept. Vedānta, Jagannāth Sanskrit University, Puri (2015 – 2016)</div>
-      <div class="member-card reveal" data-d="8"><div class="member-orb"></div>NSS Programme Officer — Faculty SVDV, BHU (2011 – 2014)</div>
-      <div class="member-card reveal" data-d="9"><div class="member-orb"></div>Member — BHU Office Automation Committee (2010 – 2014)</div>
-      <div class="member-card reveal" data-d="10"><div class="member-orb"></div>Member — BHU International Alumni Meet Organising Committee (2014 – 2015)</div>
+  <!-- ═══════ SCHOLARLY OUTPUTS ═══════ -->
+  <section class="section out-sec" id="outputs">
+    <div class="stag">Scholarly Outputs</div>
+    <h2 class="sec-h">Written<br>Work</h2>
+    <div class="out-grid">
+      <div class="out-card">
+        <div class="out-type">Abstract · Sanskrit Medium</div>
+        <div class="out-title">Vidhi in Vedānta</div>
+        <div class="out-desc">Sanskrit-medium scholarly draft on the concept of injunction (vidhi) in Advaita epistemology — examining how Mīmāṃsā and Vedāntic frameworks handle prescriptive speech acts, with implications for formal semantics.</div>
+      </div>
+      <div class="out-card">
+        <div class="out-type">Translation · Critical Annotation</div>
+        <div class="out-title">Bṛhannīlatantram, Chapters 14–16</div>
+        <div class="out-desc">Full IAST apparatus and critical annotation of Chapters 14–16 (Kāmākhyā Pūjā · Nīlakuṭa Māhātmya · Pūjā Vidhi) — with scholarly commentary on ritual grammar and Āgamic textual tradition.</div>
+      </div>
+      <div class="out-card">
+        <div class="out-type">Technical Analysis</div>
+        <div class="out-title">Shaabdabodha Platform — Competitive Analysis</div>
+        <div class="out-desc">Technical and scholarly analysis of the Shaabdabodha Sanskrit NLP platform — identifying its computational architecture, limitations, and the research gaps my work addresses. Structured as a positioning document for PhD applications.</div>
+      </div>
+      <div class="out-card">
+        <div class="out-type">PhD Research Proposal</div>
+        <div class="out-title">Sanskrit NLP &amp; Indian Knowledge Systems</div>
+        <div class="out-desc">Formal PhD research proposal submitted to IIT Madras · IIT Roorkee · IIT Delhi · IIT Bombay — proposing a computational grammar and NLP toolkit for the Vīraśaiva-Lingāyata corpus as a doctoral research programme.</div>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════ FOOTER ══════════ -->
-  <footer class="footer" aria-label="Footer">
-    <div class="footer-brand">Dr. Saroj Kumar Padhi</div>
-    <div class="footer-meta">
-      <div class="footer-inst">Banaras Hindu University</div>
-      <div class="footer-copy">Professor · Vaidic Darshan · Faculty of SVDV<br>
-      Varanasi — 221005 · India · © 2025</div>
+  <!-- UPANISHADIC QUOTE BREAK -->
+  <div class="skt-break">
+    <div class="skt-verse">श्रद्धावान् लभते ज्ञानम्</div>
+    <div class="skt-src">Bhagavad Gītā 4.39</div>
+    <div class="skt-meaning">The one with sincere faith attains knowledge.</div>
+  </div>
+
+  <!-- ═══════ EDUCATION ═══════ -->
+  <section class="section exp-sec" id="education">
+    <div class="stag">Education &amp; Credentials</div>
+    <h2 class="sec-h">Academic<br>Record</h2>
+    <div class="tl">
+      <div class="tl-card cur">
+        <div class="tl-hd"><div class="tl-role">PhD Applicant — Sanskrit Computational Linguistics</div><div class="tl-period">2025 — Applied</div></div>
+        <div class="tl-org">IIT Madras · IIT Roorkee · IIT Delhi · IIT Bombay — IKS / HSS Departments</div>
+        <div class="tl-desc">Applied to IIT programs under Indian Knowledge Systems (IKS) and Humanities &amp; Social Sciences with computational focus. The research proposal I submitted is for building the first formal NLP toolkit for the Vīraśaiva-Lingāyata corpus — a gap that I think is worth five years of doctoral work.</div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-hd"><div class="tl-role">MA, Advaita Vedānta</div><div class="tl-period">Completed</div></div>
+        <div class="tl-org">Banaras Hindu University</div>
+        <div class="tl-desc">Graduate study through BHU — primary texts, Brahmasūtrabhāṣya, Upaniṣads, Mīmāṃsā epistemology. What I learned here is directly connected to what I am now trying to formalize computationally. The concepts did not change; the medium did.</div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-hd"><div class="tl-role">UGC NET — Traditional Subjects</div><div class="tl-period">Qualified</div></div>
+        <div class="tl-org">Code 73</div>
+        <div class="tl-desc">Qualified UGC NET in Traditional Subjects (Code 73) — the national eligibility credential for research fellowships and lectureship in classical Indian scholarship.</div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-hd"><div class="tl-role">Gurukula Formation — Sanskrit &amp; Śāstra</div><div class="tl-period">Residential · 5 Years</div></div>
+        <div class="tl-org">Veda Vijñāna Gurukulam · Bangalore</div>
+        <div class="tl-desc">Five years living inside the tradition — daily study of Pāṇinian grammar, Advaita Vedānta, Āgamic texts, Brahmasūtra, Upaniṣads, and the Vachana corpus. This was not a course. It was a way of life, and the grounding it gave me is something I carry into every research question I now ask.</div>
+      </div>
     </div>
+  </section>
+
+  <!-- ═══════ SKILLS ═══════ -->
+  <section class="section skill-sec" id="skills">
+    <div class="stag">Capabilities</div>
+    <h2 class="sec-h">Skills &amp;<br>Languages</h2>
+    <div class="sgrid">
+      <div class="s-card"><span class="s-icon">🐍</span><div class="s-name">Python · NLP · AI</div><div class="s-desc">Python (PEP 8 · type hints · Black · Ruff) · LLM integration · RAG pipelines · prompt engineering · semantic search · Anthropic API · LangChain · REST APIs.</div><div class="s-lvl"><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p"></div></div></div>
+      <div class="s-card"><span class="s-icon">📜</span><div class="s-name">Sanskrit &amp; Pāṇinian Grammar</div><div class="s-desc">Expert-level Sanskrit — Aṣṭādhyāyī rules, sandhi, kāraka, samāsa, pratyaya. Śāstric level: primary text reading, critical annotation, IAST transliteration, Devanagari rendering.</div><div class="s-lvl"><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div></div></div>
+      <div class="s-card"><span class="s-icon">🌍</span><div class="s-name">Linguistic Competencies</div><div class="s-desc">Kannada (native) · Sanskrit (expert, śāstric level) · English (academic) · Hindi. Scripts: Devanagari · Kannada · IAST · Halagannada (Old Kannada).</div><div class="s-lvl"><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div></div></div>
+      <div class="s-card"><span class="s-icon">🤖</span><div class="s-name">LLM Integration &amp; RAG</div><div class="s-desc">Retrieval-Augmented Generation · vector databases · embedding pipelines · semantic chunking · HuggingFace · FAISS · cross-encoder reranking. Delivered on real classical corpora.</div><div class="s-lvl"><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p"></div></div></div>
+      <div class="s-card"><span class="s-icon">📚</span><div class="s-name">Literary &amp; Knowledge Traditions</div><div class="s-desc">Brahmasūtra Śāṅkarabhāṣya · Upaniṣads · Vachana corpus · Bṛhannīlatantram · Śivāgama · Vīraśaiva-Lingāyata. Primary source reading and critical analysis.</div><div class="s-lvl"><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div></div></div>
+      <div class="s-card"><span class="s-icon">🔬</span><div class="s-name">Research &amp; Academic Writing</div><div class="s-desc">Literature surveys · PhD proposals · technical analysis · Sanskrit-medium scholarly drafts · critical annotation · LaTeX typesetting · Figma · Canva · Gamma · HeyGen.</div><div class="s-lvl"><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div><div class="lvl-p on"></div></div></div>
+    </div>
+  </section>
+
+  <!-- removed sections -->
+
+  <!-- UPANISHADIC QUOTE BREAK -->
+  <div class="skt-break">
+    <div class="skt-verse">आनो भद्राः क्रतवो यन्तु विश्वतः</div>
+    <div class="skt-src">Ṛgveda 1.89.1 · Site Motto</div>
+    <div class="skt-meaning">Let noble thoughts come to us from every direction.</div>
+  </div>
+
+  <!-- ═══════ CLOSING UPANIṢADIC MANTRA ═══════ -->
+  <section class="quote-sec" id="quote">
+    <p class="big-quote">
+      "ॐ पूर्णमदः पूर्णमिदं पूर्णात्पूर्णमुदच्यते।<br>
+      पूर्णस्य पूर्णमादाय पूर्णमेवावशिष्यते॥"
+    </p>
+    <div class="quote-attr" style="margin-top:14px;font-size:clamp(10px,1.2vw,14px);color:var(--gold);font-style:italic;font-family:'Cormorant Garamond',serif">
+      That is Infinite, This is Infinite. From Infinity proceeds Infinity.<br>
+      Taking Infinity from Infinity, Infinity alone remains.
+    </div>
+    <div class="quote-attr" style="margin-top:18px">— Bṛhadāraṇyaka Upaniṣad · Śānti Mantra</div>
+  </section>
+
+  <!-- ═══════ CONTACT ═══════ -->
+  <section class="section contact-sec" id="contact">
+    <div class="c-inner">
+      <h2 class="c-h">Let's<br>Connect</h2>
+      <p class="c-sub">For PhD research discussions, corpus collaboration, or NLP projects in classical Indian languages — reach out.</p>
+      <div class="c-chips">
+        <a class="c-chip" href="mailto:shrikanth@[youremail]"><span class="c-chip-i">✉</span> shrikanth@[youremail]</a>
+        <a class="c-chip" href="https://github.com/shrikanthdevaru-lang" target="_blank"><span class="c-chip-i">⌥</span> GitHub Profile</a>
+        <a class="c-chip" href="#statement"><span class="c-chip-i">📜</span> Research Statement</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-brand">Shrikantha Devaru</div>
+    <div class="foot-copy">Advaita Vedānta Scholar · Philosophy of Mind · Sanskrit Epistemology<br>Bagalkote, Karnataka · PhD Applicant · © 2026</div>
   </footer>
 
-</div><!-- /universe -->
-
+</div>
 
 <script>
-/* ════════════════════════════════════
-   STARFIELD
-════════════════════════════════════ */
-const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
-let W, H, stars = [], nebulae = [];
+gsap.registerPlugin(ScrollTrigger);
 
-function resizeCanvas() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-
-function mkStars() {
-  stars = [];
-  for (let i = 0; i < 360; i++) {
-    stars.push({
-      x: Math.random() * W, y: Math.random() * H,
-      r: Math.random() * 1.4 + 0.1,
-      base: Math.random() * 0.55 + 0.06,
-      phase: Math.random() * Math.PI * 2,
-      speed: Math.random() * 0.03 + 0.004,
-    });
+/* Three.js Background Galaxy */
+(function(){
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:false});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setClearColor(0x000000, 0);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 2000);
+  camera.position.z = 800;
+  const geo = new THREE.BufferGeometry();
+  const N = 2400;
+  const pos = new Float32Array(N*3), col = new Float32Array(N*3);
+  const pal = [[0.78,0.65,0.28],[0.22,0.85,0.96],[0.61,0.44,0.97],[0.96,0.45,0.72]];
+  for(let i=0;i<N;i++){
+    const r=400+Math.random()*1200;
+    const θ=Math.random()*Math.PI*2, φ=Math.acos(2*Math.random()-1);
+    pos[i*3]=r*Math.sin(φ)*Math.cos(θ);
+    pos[i*3+1]=r*Math.sin(φ)*Math.sin(θ);
+    pos[i*3+2]=r*Math.cos(φ);
+    const p=pal[Math.floor(Math.random()*pal.length)];
+    col[i*3]=p[0];col[i*3+1]=p[1];col[i*3+2]=p[2];
   }
-  nebulae = Array.from({length: 6}, () => ({
-    x: Math.random() * W, y: Math.random() * H * 0.8,
-    r: 120 + Math.random() * 220,
-    a: 0.012 + Math.random() * 0.02,
-    hue: Math.random() > 0.5 ? 'rgba(212,168,67,' : 'rgba(74,127,165,',
-  }));
-}
-
-function drawFrame(t) {
-  ctx.clearRect(0, 0, W, H);
-  for (const n of nebulae) {
-    const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
-    g.addColorStop(0, n.hue + n.a + ')');
-    g.addColorStop(1, 'transparent');
-    ctx.fillStyle = g;
-    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  scene.add(new THREE.Points(geo, new THREE.PointsMaterial({size:1.8,vertexColors:true,transparent:true,opacity:0.85,sizeAttenuation:false})));
+  for(let i=0;i<3;i++){
+    const rg=new THREE.TorusGeometry(180+i*90,1.5,8,120);
+    const rm=new THREE.MeshBasicMaterial({color:[0x9d71f8,0x38d9f5,0xc9a84c][i],transparent:true,opacity:0.06});
+    const ring=new THREE.Mesh(rg,rm);
+    ring.rotation.x=Math.PI/(2.5+i*0.4);ring.rotation.z=i*0.5;scene.add(ring);
   }
-  for (const s of stars) {
-    const a = s.base + Math.sin(t * s.speed + s.phase) * s.base * 0.55;
-    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(212,168,67,${a})`; ctx.fill();
-  }
-}
+  let mx=0, my=0, autoY=0;
+  window.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-0.5)*0.12;my=(e.clientY/innerHeight-0.5)*0.08;},{passive:true});
+  window.addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();},{passive:true});
+  (function loop(){requestAnimationFrame(loop);autoY+=0.00018;scene.rotation.y=autoY+mx;scene.rotation.x+=(my-scene.rotation.x)*0.02;renderer.render(scene,camera);})();
+})();
 
-let raf;
-function animate(t) { drawFrame(t * 0.001); raf = requestAnimationFrame(animate); }
-window.addEventListener('resize', () => { resizeCanvas(); mkStars(); }, { passive: true });
-resizeCanvas(); mkStars(); animate(0);
+/* GSAP Hero entrance */
+gsap.set(['#h-badge','#h-name','#h-desc','#h-stats','#h-ctas','#h-pills'],{opacity:0,y:30});
+gsap.timeline({delay:0.1})
+  .to('#h-badge', {opacity:1,y:0,duration:0.7,ease:'power3.out'})
+  .to('#h-name',  {opacity:1,y:0,duration:0.9,ease:'power3.out'},'-=0.4')
+  .to('#h-desc',  {opacity:1,y:0,duration:0.7,ease:'power3.out'},'-=0.5')
+  .to('#h-stats', {opacity:1,y:0,duration:0.7,ease:'power3.out'},'-=0.5')
+  .to('#h-ctas',  {opacity:1,y:0,duration:0.7,ease:'power3.out'},'-=0.5')
+  .to('#h-pills', {opacity:1,y:0,duration:0.7,ease:'power3.out'},'-=0.5');
 
-/* ════════════════════════════════════
-   PROGRESS BAR + NAV SCROLL
-════════════════════════════════════ */
-const progressEl = document.getElementById('progress');
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-  progressEl.style.width = pct + '%';
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+/* Section headings */
+document.querySelectorAll('.sec-h').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,y:50},{opacity:1,y:0,duration:0.9,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 85%',once:true}});
+});
 
-/* ════════════════════════════════════
-   YEARS COUNTER
-════════════════════════════════════ */
-function animCount(el, to, dur, suffix) {
-  const s = performance.now();
-  const fn = now => {
-    const p = Math.min((now - s) / dur, 1);
-    el.textContent = Math.round(to * p) + suffix;
-    if (p < 1) requestAnimationFrame(fn);
-  };
-  requestAnimationFrame(fn);
-}
-const yearsEl = document.getElementById('years-count');
-const yobs = new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) { animCount(yearsEl, 20, 1800, '+'); yobs.disconnect(); }
-}, { threshold: 0.3 });
-yobs.observe(yearsEl);
+/* About/pillar cards */
+gsap.utils.toArray('.a-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:60,rotateX:6},{opacity:1,y:0,rotateX:0,duration:0.85,ease:'power3.out',delay:i*0.12,
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
 
-/* ════════════════════════════════════
-   SCROLL REVEAL
-════════════════════════════════════ */
-const revealEls = document.querySelectorAll('.reveal');
-const revIo = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); revIo.unobserve(e.target); }
+/* Timeline cards */
+gsap.utils.toArray('.tl-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,x:-50},{opacity:1,x:0,duration:0.8,ease:'power3.out',delay:i*0.12,
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+
+/* Skill cards */
+gsap.utils.toArray('.s-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:50,scale:0.93},{opacity:1,y:0,scale:1,duration:0.75,ease:'back.out(1.4)',delay:i*0.08,
+    scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+});
+
+/* Output cards */
+gsap.utils.toArray('.out-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,x:-30},{opacity:1,x:0,duration:0.8,ease:'power3.out',delay:i*0.1,
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+
+/* Civic cards */
+gsap.utils.toArray('.civic-card').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:0.7,ease:'power3.out',delay:i*0.08,
+    scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+});
+
+/* Research statement */
+gsap.fromTo('.rs-card',{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',
+  scrollTrigger:{trigger:'.rs-card',start:'top 85%',once:true}});
+
+/* Institutional card */
+gsap.fromTo('.inst-card',{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',
+  scrollTrigger:{trigger:'.inst-card',start:'top 85%',once:true}});
+
+/* Closing quote */
+gsap.fromTo('.big-quote',{opacity:0,y:30},{opacity:1,y:0,duration:1.2,ease:'power3.out',
+  scrollTrigger:{trigger:'.big-quote',start:'top 85%',once:true}});
+
+/* Contact */
+gsap.utils.toArray('.c-inner > *').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:0.8,ease:'power3.out',delay:i*0.15,
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+
+/* Hero parallax */
+gsap.to('#h-name',{yPercent:-14,
+  scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+/* Sticky card scale */
+function updateCards(){
+  ['pc0','pc1','pc2','pc3','pc4'].forEach((id,i)=>{
+    const card=document.getElementById(id);if(!card)return;
+    const rect=card.closest('.pw').getBoundingClientRect();
+    const past=Math.max(0,-rect.bottom+innerHeight);
+    const p=Math.min(1,past/(innerHeight*0.5));
+    card.style.transform=`scale(${1-(4-i)*0.025*p})`;
+    card.style.transformOrigin='top center';
   });
-}, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
-revealEls.forEach(el => revIo.observe(el));
-
-/* ════════════════════════════════════
-   MARQUEE (scroll-driven)
-════════════════════════════════════ */
-const marqueeData = [
-  // Row 1: Research themes
-  { glyph: 'ब्रह्म',   title: 'Brahman',         sub: 'Ultimate Reality · Vedānta' },
-  { glyph: 'आत्मन्',  title: 'Ātman',            sub: 'Individual Self · Upaniṣads' },
-  { glyph: 'माया',   title: 'Māyā',            sub: 'Cosmic Illusion · Advaita' },
-  { glyph: 'मोक्ष',   title: 'Mokṣa',           sub: 'Liberation · Soteriology' },
-  { glyph: 'धर्म',    title: 'Dharma',           sub: 'Righteous Order · Ethics' },
-  { glyph: 'ॐ',      title: 'Praṇava',          sub: 'Sacred Syllable · Vedic' },
-  { glyph: 'शंकर',  title: 'Śaṅkara',          sub: 'Advaita Philosopher · 8th C.' },
-  { glyph: 'श्रुति',   title: 'Śruti',            sub: 'Vedic Revelation' },
-  { glyph: 'स्मृति',  title: 'Smṛti',            sub: 'Remembered Texts' },
-  { glyph: 'प्रमाण', title: 'Pramāṇa',          sub: 'Valid Cognition · Epistemology' },
-  { glyph: 'गुरु',    title: 'Guru-Śiṣya',       sub: 'Teaching Tradition · BHU' },
-  // Row 2
-  { glyph: 'तत्त्व',   title: 'Tattva',           sub: 'Ontological Categories' },
-  { glyph: 'वाक्य',   title: 'Vākyapadīya',      sub: 'Philosophy of Language' },
-  { glyph: 'बन्ध',    title: 'Bandha-Mokṣa',     sub: 'Bondage & Liberation' },
-  { glyph: 'चेतना',   title: 'Cetanā',           sub: 'Consciousness Studies' },
-  { glyph: 'विवर्त',  title: 'Vivarta',           sub: 'Apparent Transformation' },
-  { glyph: 'अद्वैत', title: 'Advaita',           sub: 'Non-Dualism · Core Study' },
-  { glyph: 'पुराण',   title: 'Purāṇa',           sub: 'Ancient Narratives · Bhāgavata' },
-  { glyph: 'संस्कृत', title: 'Sanskrit',          sub: 'Sacred Language · Dept. SVDV' },
-  { glyph: 'कर्म',    title: 'Karma',            sub: 'Action & Consequence' },
-  { glyph: 'ज्ञान',   title: 'Jñāna',            sub: 'Knowledge as Liberation' },
-];
-
-function buildMarquee() {
-  const row1El = document.getElementById('marquee-row1');
-  const row2El = document.getElementById('marquee-row2');
-  const d1 = marqueeData.slice(0, 11);
-  const d2 = marqueeData.slice(11);
-
-  function tile(d) {
-    return `
-      <div class="marquee-item">
-        <div class="marquee-item-inner">
-          <div class="marquee-item-glyph">${d.glyph}</div>
-          <div class="marquee-item-title">${d.title}</div>
-          <div class="marquee-item-sub">${d.sub}</div>
-        </div>
-      </div>`;
-  }
-
-  row1El.innerHTML = [...d1, ...d1, ...d1].map(tile).join('');
-  row2El.innerHTML = [...d2, ...d2, ...d2].map(tile).join('');
 }
-
-buildMarquee();
-
-// Scroll-driven marquee
-const marqueeSec = document.querySelector('.marquee-section');
-const row1 = document.getElementById('marquee-row1');
-const row2 = document.getElementById('marquee-row2');
-
-let mrafId;
-function updateMarquee() {
-  const rect = marqueeSec.getBoundingClientRect();
-  const offset = (-rect.top + window.innerHeight) * 0.28;
-  row1.style.transform = `translateX(${offset - 180}px)`;
-  row2.style.transform = `translateX(${-(offset - 180)}px)`;
-  mrafId = null;
-}
-
-window.addEventListener('scroll', () => {
-  if (!mrafId) mrafId = requestAnimationFrame(updateMarquee);
-}, { passive: true });
-
-/* ════════════════════════════════════
-   ABOUT CHARACTER REVEAL
-════════════════════════════════════ */
-function buildCharReveal(el) {
-  const text = el.textContent;
-  el.innerHTML = '';
-  el.style.position = 'relative';
-
-  const chars = [];
-  for (const ch of text) {
-    const wrap = document.createElement('span');
-    wrap.style.cssText = 'position:relative;display:inline;white-space:pre-wrap;';
-
-    const ghost = document.createElement('span');
-    ghost.style.cssText = 'opacity:0;';
-    ghost.textContent = ch;
-
-    const anim = document.createElement('span');
-    anim.style.cssText = 'position:absolute;left:0;top:0;opacity:0.18;transition:opacity 0.12s;white-space:pre-wrap;';
-    anim.textContent = ch;
-
-    wrap.appendChild(ghost);
-    wrap.appendChild(anim);
-    el.appendChild(wrap);
-    chars.push(anim);
-  }
-
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const rect = el.getBoundingClientRect();
-        const elTop = window.scrollY + rect.top;
-        const elH = rect.height + window.innerHeight * 0.6;
-
-        function onScroll() {
-          const pct = Math.max(0, Math.min(1, (window.scrollY - elTop + window.innerHeight * 0.8) / elH));
-          const threshold = pct;
-          chars.forEach((ch, i) => {
-            const charPct = i / chars.length;
-            ch.style.opacity = charPct <= threshold ? '1' : '0.18';
-          });
-        }
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-      }
-    });
-  }, { threshold: 0.1 });
-
-  obs.observe(el);
-}
-
-const aboutText = document.getElementById('about-text');
-if (aboutText) buildCharReveal(aboutText);
-
-/* ════════════════════════════════════
-   STICKY CARD STACK — SCALE EFFECT
-════════════════════════════════════ */
-const totalCards = 3;
-
-function updateCards() {
-  for (let i = 0; i < totalCards; i++) {
-    const card = document.getElementById(`card-${i}`);
-    if (!card) continue;
-
-    const wrapper = card.closest('.card-wrapper');
-    const rect = wrapper.getBoundingClientRect();
-    const st = card.querySelector('.card-sticky');
-
-    // Offset cards so they stack visually
-    card.style.top = `${120 + i * 28}px`;
-
-    // Scale down as subsequent cards overlap
-    const scrolledPast = Math.max(0, -rect.bottom + window.innerHeight);
-    const progress = Math.min(1, scrolledPast / (window.innerHeight * 0.6));
-    const targetScale = 1 - (totalCards - 1 - i) * 0.03;
-    const scale = 1 - (1 - targetScale) * progress;
-
-    st.style.transform = `scale(${scale})`;
-    st.style.transformOrigin = 'top center';
-  }
-}
-
-window.addEventListener('scroll', updateCards, { passive: true });
+window.addEventListener('scroll',updateCards,{passive:true});
 updateCards();
 
-/* ════════════════════════════════════
-   CURSOR GLOW (desktop only)
-════════════════════════════════════ */
-if (window.matchMedia('(pointer: fine)').matches) {
-  const glow = document.createElement('div');
-  Object.assign(glow.style, {
-    position: 'fixed', pointerEvents: 'none', zIndex: '9998',
-    width: '360px', height: '360px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(212,168,67,0.055) 0%, transparent 70%)',
-    transform: 'translate(-50%, -50%)',
-    transition: 'left 0.06s ease, top 0.06s ease',
-    willChange: 'left, top',
-  });
-  document.body.appendChild(glow);
-  window.addEventListener('mousemove', e => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top  = e.clientY + 'px';
-  }, { passive: true });
+/* Progress + Nav */
+const prog=document.getElementById('progress');
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  prog.style.width=(window.scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+  nav.classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+
+/* Cursor glow */
+if(window.matchMedia('(pointer:fine)').matches){
+  const g=document.getElementById('cursor-glow');
+  window.addEventListener('mousemove',e=>{g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';},{passive:true});
 }
 
-/* ════════════════════════════════════
-   MAGNET EFFECT on portrait
-════════════════════════════════════ */
-(function setupMagnet() {
-  const el = document.getElementById('portrait');
-  if (!el) return;
-  const PADDING = 120, STRENGTH = 3.5;
-  let active = false;
+/* 3D Tilt on skill cards */
+document.querySelectorAll('.s-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    const x=(e.clientX-rect.left-rect.width/2)/rect.width;
+    const y=(e.clientY-rect.top-rect.height/2)/rect.height;
+    card.style.transform=`translateY(-8px) rotateX(${-y*9}deg) rotateY(${x*9}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transition='transform 0.6s ease';
+    card.style.transform='';
+    setTimeout(()=>card.style.transition='',600);
+  });
+});
 
-  window.addEventListener('mousemove', e => {
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top  + rect.height / 2;
-    const dx = e.clientX - cx;
-    const dy = e.clientY - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const threshold = Math.max(rect.width, rect.height) / 2 + PADDING;
+/* Orb parallax */
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  document.querySelector('.o1').style.transform=`translateY(${y*.13}px)`;
+  document.querySelector('.o2').style.transform=`translateY(${-y*.08}px)`;
+  document.querySelector('.o3').style.transform=`translateY(${y*.06}px)`;
+},{passive:true});
 
-    if (dist < threshold) {
-      if (!active) {
-        el.style.transition = 'transform 0.3s ease-out';
-        active = true;
-      }
-      el.style.transform = `translate3d(${dx / STRENGTH}px, ${dy / STRENGTH}px, 0)`;
-    } else if (active) {
-      el.style.transition = 'transform 0.65s ease-in-out';
-      el.style.transform = 'translate3d(0, 0, 0)';
-      active = false;
-    }
-  }, { passive: true });
-})();
+/* Marquee */
+const items=[
+  {g:'अद्वैत',t:'Advaita Vedānta',s:'Non-dual Philosophy of Mind'},
+  {g:'चित्',t:'Pure Consciousness',s:'Ancient & Modern Phenomenology'},
+  {g:'अध्यास',t:'Theory of Superimposition',s:'Cognition & Illusion'},
+  {g:'स्फोट',t:'Sphoṭa Theory',s:'Holistic Meaning Perception'},
+  {g:'ब्रह्म',t:'Brahmasūtrabhāṣya',s:'Śaṅkarācārya Exegesis'},
+  {g:'पाणिनि',t:"Pāṇinian Grammar",s:'Structural Semantics'},
+  {g:'प्रमाण',t:'Epistemology & Śabda',s:'Valid Means of Knowledge'},
+  {g:'IIT',t:'IIT PhD Aspirant',s:'Philosophy & IKS Focus'},
+  {g:'RAG',t:'Computational Exegesis',s:'RAG over Classical Texts'},
+  {g:'ವಚನ',t:'Vachana Epistemology',s:'12th-Century Soteriology'},
+  {g:'अन्तःकरण',t:'Antaḥkaraṇa Model',s:'Mind, Intellect, Ego, Memory'},
+  {g:'ज्ञान',t:'Knowledge Systems',s:'Classical & Modern Bridge'},
+];
+const tile=d=>`<div class="m-card"><div class="m-glyph">${d.g}</div><div class="m-title">${d.t}</div><div class="m-sub">${d.s}</div></div>`;
+const r1=items.slice(0,6), r2=items.slice(6);
+document.getElementById('mr1').innerHTML=[...r1,...r1,...r1].map(tile).join('');
+document.getElementById('mr2').innerHTML=[...r2,...r2,...r2].map(tile).join('');
+const msec=document.querySelector('.marquee-wrap'),mr1=document.getElementById('mr1'),mr2=document.getElementById('mr2');
+let mraf;
+window.addEventListener('scroll',()=>{
+  if(!mraf) mraf=requestAnimationFrame(()=>{
+    const off=(-msec.getBoundingClientRect().top+innerHeight)*0.22;
+    mr1.style.transform=`translateX(${off-120}px)`;
+    mr2.style.transform=`translateX(${-(off-120)}px)`;
+    mraf=null;
+  });
+},{passive:true});
 </script>
-
 </body>
 </html>
