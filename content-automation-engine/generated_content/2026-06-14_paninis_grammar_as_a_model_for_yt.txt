@@ -1,0 +1,3 @@
+[HOOK] Did you know that Panini's Grammar as a Model for Modern NLP Algorithms?
+[INTRO] Welcome back to the channel! Today we're exploring Exploring how the rule-based syntax of the Ashtadhyayi can optimize Natural Language Processing..
+[OUTRO] Subscribe for more!

@@ -1,0 +1,3 @@
+[HOOK] Did you know that Digitizing Ancient Manuscripts with AI OCR?
+[INTRO] Welcome back to the channel! Today we're exploring Using deep learning models to read and digitize Grantha and Sharada scripts..
+[OUTRO] Subscribe for more!
